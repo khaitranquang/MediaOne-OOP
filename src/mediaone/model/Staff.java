@@ -4,7 +4,7 @@ public class Staff {
 	private String idStaff;
 	private String nameStaff;
 	private String pass;
-	private Double selary;
+	private Double salary;
 	
 	public String getIdStaff() {
 		return idStaff;
@@ -15,16 +15,15 @@ public class Staff {
 	public String getPass() {
 		return pass;
 	}
-	public Double getSelary() {
-		return selary;
+	public Double getSalary() {
+		return salary;
 	}
 	
-	public Staff(String idStaff, String nameStaff, String pass, Double selary) {
+	public Staff(String idStaff, String nameStaff, String pass, Double salary) {
 		super();
 		this.idStaff = idStaff;
 		this.nameStaff = nameStaff;
 		this.pass = pass;
-		this.selary = selary;
+		this.salary = salary;
 	}
-	
 }
