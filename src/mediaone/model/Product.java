@@ -1,10 +1,11 @@
 package mediaone.model;
 
-public abstract class Product {
+public class Product {
 	private String idProduct;
 	private String nameProduct;
 	private int quantity;
 	private double outPrice;
+	
 	private double inPrice;
 	
 	public String getIdProduct() {
@@ -31,7 +32,11 @@ public abstract class Product {
 		this.outPrice = outPrice;
 		this.inPrice = inPrice;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Product \n[idProduct=" + idProduct + ",\n nameProduct=" + nameProduct + ",\n quantity=" + quantity
+				+ ",\n outPrice=" + outPrice + ",\n inPrice=" + inPrice + "]";
+	}
+
 }
