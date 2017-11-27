@@ -12,11 +12,14 @@ import javax.swing.JOptionPane;
 import mediaone.model.Book;
 import mediaone.model.Product;
 
-public class QBook extends ConnectManager implements IDataAccess{
+public class QBook extends ConnectManager implements IDataAccess<Book> {
 	private static List<Product> lsP;
 	private static List<Book> lsB;
 	
-	@SuppressWarnings("unchecked")
+	/**
+	 * Load all of Book in Database
+	 * and return list of them 
+	 */
 	@Override
 	public List<Book> loadProduct() {
 		lsB = new ArrayList<>();
@@ -45,10 +48,11 @@ public class QBook extends ConnectManager implements IDataAccess{
 		return lsB;
 	}
 
-	
+	/**
+	 * Add one Book into database
+	 */
 	@Override
-	public String addProduct(Object product) {
-		Book book = (Book) product;
+	public String addProduct(Book book) {
 		String query, query1, result = "";
 		int row = 0, row1 = 0;
 		PreparedStatement pstmt = null, pstmt1 = null;
@@ -71,9 +75,11 @@ public class QBook extends ConnectManager implements IDataAccess{
 				
 				row1 = pstmt1.executeUpdate();
 				if(row1 != 0) {
-					result = "Added product successfull!";
+					result = "Added book successfull!";
 				} else {
-					delProductID(book.getIdProduct());
+					query = "DELETE FROM sanpham WHERE MaSP = \'" + book.getIdProduct() + "\'";
+					pstmt.execute(query);
+					result = "Cannot add this book, try again!";
 				}
 			}
 		} catch (SQLException e) {
@@ -97,6 +103,9 @@ public class QBook extends ConnectManager implements IDataAccess{
 		return result;
 	}
 
+	/**
+	 * Delete one book with idBook
+	 */
 	@Override
 	public String delProductID(String idProduct) {
 		String result = "";
@@ -124,11 +133,14 @@ public class QBook extends ConnectManager implements IDataAccess{
 				}
 			}
 		} else {
-			result = "0 .Nothing change in data";
+			result = "0 .This Book that you input is not exist!";
 		}
 		return result;
 	}
-
+	
+	/**
+	 * Check that book with idBook is exist, isn't it?
+	 */
 	@Override
 	public boolean hasProductID(String idProduct) {
 		Boolean result = false;
@@ -143,6 +155,9 @@ public class QBook extends ConnectManager implements IDataAccess{
 		return result;
 	}
 
+	/**
+	 * Load Product, which store information of Book
+	 */
 	@Override
 	public List<Product> listProduct() {
 		lsP = new ArrayList<>();
@@ -168,4 +183,27 @@ public class QBook extends ConnectManager implements IDataAccess{
 		}
 		return lsP;
 	}
+
+	@Override
+	public String updateProduct(Book product) {
+		String result = "";
+		List<Book> lsBook = loadProduct();
+		int flag = 0;
+		for (Book book : lsBook) {
+			if(book.getIdProduct().equals(product.getIdProduct())) {
+				delProductID(book.getIdProduct());
+				addProduct(product);
+				flag = 1;
+				break;
+			}
+		}
+		if(flag == 0) {
+			result = "The book cannot updated";
+		} else {
+			result = "The book have been update already";
+		}
+		return result;
+	}
+
+
 }
