@@ -5,6 +5,7 @@ public class Staff {
 	private String nameStaff;
 	private String pass;
 	private Double salary;
+	private int days;
 	
 	public String getIdStaff() {
 		return idStaff;
@@ -19,11 +20,16 @@ public class Staff {
 		return salary;
 	}
 	
-	public Staff(String idStaff, String nameStaff, String pass, Double salary) {
+	public int getDays() {
+		return days;
+	}
+	
+	public Staff(String idStaff, String nameStaff, String pass, Double salary, int days) {
 		super();
 		this.idStaff = idStaff;
 		this.nameStaff = nameStaff;
 		this.pass = pass;
 		this.salary = salary;
+		this.days = days;
 	}
 }
