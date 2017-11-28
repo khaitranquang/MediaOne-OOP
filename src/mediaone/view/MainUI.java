@@ -42,7 +42,7 @@ public class MainUI extends JFrame{
 		managerStaff = new PanelManagerStaff();
 		tabbedPane.addTab("Quản lí nhân viên", null, managerStaff, "Quản lí nhân viên");
 		managerBill = new PanelManagerBill();
-		tabbedPane.addTab("Quản lí hóa đơn", null, managerBill, "Quản lí hóa đơn");
+		tabbedPane.addTab("Quản lí bán hàng", null, managerBill, "Quản lí bán hàng");
 		
 		return tabbedPane;
 	}

@@ -24,7 +24,7 @@ public class ButtonProductView extends JPanel{
 	
 	public ButtonProductView() {
 		setLayout(new BorderLayout(10, 10));
-		setBorder(new EmptyBorder(5, 0, 90, 0));
+		setBorder(new EmptyBorder(45, 200, 45, 200));
 		add (createButtonPanel(), BorderLayout.CENTER);
 	}
 	

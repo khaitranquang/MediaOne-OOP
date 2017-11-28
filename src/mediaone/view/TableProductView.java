@@ -3,33 +3,53 @@ package mediaone.view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import mediaone.model.Book;
+import mediaone.model.FilmCD;
+import mediaone.model.MusicCD;
+import mediaone.model.Product;
+
 public class TableProductView extends JPanel{
 	public static final int TABLE_PRODUCT_WIDTH  = 950;
 	public static final int TABLE_PRODUCT_HEIGHT = 350;
-	private JTable table;
-	private String[] titleCols = {"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá bán"};
 	
-	private JRadioButton radAll = new JRadioButton("Chung", true);
-	private JRadioButton radBook = new JRadioButton("Sách", false);
-	private JRadioButton radMusic = new JRadioButton("Film", false);
+	private JTable table;
+	private String[] defaultTitle = {"Mã sản phẩm", "Tên sản phẩm", "Thuộc tính 1", "Thuộc tính 2",
+									"Số lượng", "Giá bán", "Giá nhập"};
+	private String[] titleBook = {"Mã sản phẩm", "Tên sản phẩm", "Nhà xuất bản", "Tác giả",
+								  "Số lượng", "Giá bán", "Giá nhập"};
+	private String[] titleMusic = {"Mã sản phẩm", "Tên sản phẩm", "Tên ca sĩ", "Thể loại",
+			  					   "Số lượng", "Giá bán", "Giá nhập"};
+	private String[] titleFilm = {"Mã sản phẩm", "Tên sản phẩm", "Đạo diễn", "Diễn viên",
+			  					  "Số lượng", "Giá bán", "Giá nhập"};
+	private int mode = 0;
+	
+	private JRadioButton radBook = new JRadioButton("Sách", true);
+	private JRadioButton radMusic = new JRadioButton("Nhạc", false);
 	private JRadioButton radFilm = new JRadioButton("Phim", false);
+	
+	private String[] searchBook = {"Nhà xuất bản", "Tác giả"};
+	private String[] searchMusicCD = {"Tên ca sĩ", "Thể loại"};
+	private String[] searchFilmCD = {"Đạo diễn", "Diễn viên"};
+	private JTextField tfSearch = new JTextField();
+	private JComboBox<String> cbSearch;
 	
 	public JTable getTable() {
 		return table;
-	}
-	public JRadioButton getRadAll() {
-		return radAll;
 	}
 	public JRadioButton getRadBook() {
 		return radBook;
@@ -40,26 +60,54 @@ public class TableProductView extends JPanel{
 	public JRadioButton getRadFilm() {
 		return radFilm;
 	}
+	public JTextField getTfSearch() {
+		return tfSearch;
+	}
+	public JComboBox<String> getCbSearch() {
+		return cbSearch;
+	}
+	public int getMode() {
+		return mode;
+	}
+	public void setMode(int mode) {
+		this.mode = mode;
+	}
 	
 	public TableProductView() {
 		setLayout(new BorderLayout(5, 5));
 		add(createGroupRadioPanel(), BorderLayout.PAGE_START);
-		add(createTableProductPanel(), BorderLayout.CENTER);
+		add(createProductPanel(), BorderLayout.CENTER);
 	}
 	
 	private JPanel createGroupRadioPanel() {
-		JPanel radioPanel = new JPanel(new GridLayout(1, 4, 5, 5));
-		radioPanel.setBorder(new EmptyBorder(5, 40, 5, 40));
+		JPanel radioPanel = new JPanel(new GridLayout(1, 3, 5, 5));
+		radioPanel.setBorder(new EmptyBorder(5, 300, 5, 300));
 		ButtonGroup group = new ButtonGroup();
-		group.add(radAll);
 		group.add(radBook);
 		group.add(radMusic);
 		group.add(radFilm);
-		radioPanel.add(radAll);
 		radioPanel.add(radBook);
 		radioPanel.add(radMusic);
 		radioPanel.add(radFilm);
 		return radioPanel;
+	}
+	
+	private JPanel createProductPanel() {
+		JPanel panel = new JPanel(new BorderLayout(5, 5));
+		panel.add(createSearchPanel(), BorderLayout.PAGE_START);
+		panel.add(createTableProductPanel(), BorderLayout.CENTER);
+		return panel;
+	}
+	
+	private JPanel createSearchPanel() {
+		JPanel searchPanel = new JPanel(new BorderLayout(5, 5));
+		searchPanel.setBorder(new EmptyBorder(5, 40, 5, 40));
+		searchPanel.add(new JLabel("Tìm kiếm "), BorderLayout.WEST);
+		searchPanel.add(tfSearch, BorderLayout.CENTER);
+		String[] titleCbSeach = selectTitleCbSearch(mode);
+		cbSearch = new JComboBox<>(titleCbSeach);
+		searchPanel.add(cbSearch, BorderLayout.EAST);
+		return searchPanel;
 	}
 	
 	private JPanel createTableProductPanel() {
@@ -89,7 +137,7 @@ public class TableProductView extends JPanel{
 		SwingUtilities.invokeLater(new Runnable(){public void run(){
 			String data[][] = null;
 		    //Update the model here
-			DefaultTableModel tableModel = new DefaultTableModel(data, titleCols) {
+			DefaultTableModel tableModel = new DefaultTableModel(data, changeTitle(0)) {
 				@Override
 				public boolean isCellEditable(int row, int column) {
 					// TODO Auto-generated method stub
@@ -100,24 +148,117 @@ public class TableProductView extends JPanel{
 		}});
 	}
 	
+	private String[] changeTitle(int mode) {
+		if (mode == 0) return titleBook;
+		else if (mode == 1) return titleMusic;
+		else if (mode == 2) return titleFilm;
+		return defaultTitle;
+	}
+	
+	private String[] selectTitleCbSearch(int mode) {
+		if (mode == 0) return searchBook;
+		else if (mode == 1) return searchMusicCD;
+		else if (mode == 2) return searchFilmCD;
+		return null;
+	}
+	
 	// Update Model of table
-//	public void updateTable(ArrayList<Xe> list) {
-//		SwingUtilities.invokeLater(new Runnable(){public void run(){
-//		    //Update the model here
-//			String data[][] = convertData(list);
-//			DefaultTableModel tableModel = new DefaultTableModel(data, titleCols) {
-//				@Override
-//				public boolean isCellEditable(int row, int column) {
-//					// TODO Auto-generated method stub
-//					return false;
-//				}
-//			};
-//			table.setModel(tableModel);	
-//		}});
-//	}
-//	
-//	// Convert list of Book => Array 2D
-//	private String[][] convertData(ArrayList<Xe> list) {
+	public void updateTableBook(ArrayList<Book> listBook) {
+		SwingUtilities.invokeLater(new Runnable(){public void run(){
+		    //Update the model here
+			String data[][] = convertData(listBook, 0);
+			DefaultTableModel tableModel = new DefaultTableModel(data, changeTitle(0)) {
+				@Override
+				public boolean isCellEditable(int row, int column) {
+					// TODO Auto-generated method stub
+					return false;
+				}
+			};
+			table.setModel(tableModel);	
+		}});
+	}
+	
+	public void updateTableMusicCD(ArrayList<MusicCD> listMusicCD) {
+		SwingUtilities.invokeLater(new Runnable(){public void run(){
+		    //Update the model here
+			String data[][] = convertData(listMusicCD, 1);
+			DefaultTableModel tableModel = new DefaultTableModel(data, changeTitle(1)) {
+				@Override
+				public boolean isCellEditable(int row, int column) {
+					// TODO Auto-generated method stub
+					return false;
+				}
+			};
+			table.setModel(tableModel);	
+		}});
+	}
+	
+	public void updateTableFilmCD(ArrayList<FilmCD> listFilmCD) {
+		SwingUtilities.invokeLater(new Runnable(){public void run(){
+		    //Update the model here
+			String data[][] = convertData(listFilmCD, 2);
+			DefaultTableModel tableModel = new DefaultTableModel(data, changeTitle(2)) {
+				@Override
+				public boolean isCellEditable(int row, int column) {
+					// TODO Auto-generated method stub
+					return false;
+				}
+			};
+			table.setModel(tableModel);	
+		}});
+	}
+	
+	private String[][] convertData(ArrayList listProduct, int mode) {
+		int size = listProduct.size();
+		String[][] data = new String[size][7];
+		
+		// Convert Book
+		if (mode == 0) {
+			for (int i = 0; i < size; i++) {
+				Book book = (Book) listProduct.get(i);
+				data[i][0] = book.getIdProduct();
+				data[i][1] = book.getNameProduct();
+				data[i][2] = book.getPublisher();
+				data[i][3] = book.getAuthor();
+				data[i][4] = book.getQuantity() + "";
+				data[i][5] = book.getOutPrice() + "";
+				data[i][6] = book.getInPrice() + "";
+			}
+		}
+		// Convert MusicCD
+		else if (mode == 1) {
+			for (int i = 0; i < size; i++) {
+				MusicCD musicCD = (MusicCD) listProduct.get(i);
+				data[i][0] = musicCD.getIdProduct();
+				data[i][1] = musicCD.getNameProduct();
+				data[i][2] = musicCD.getSingerName();
+				data[i][3] = musicCD.getType();
+				data[i][4] = musicCD.getQuantity() + "";
+				data[i][5] = musicCD.getOutPrice() + "";
+				data[i][6] = musicCD.getInPrice() + "";
+			}
+		}
+		//Convert FilmCD
+		else if (mode == 2) {
+			for (int i = 0; i < size; i++) {
+				FilmCD filmCD = (FilmCD) listProduct.get(i);
+				data[i][0] = filmCD.getIdProduct();
+				data[i][1] = filmCD.getNameProduct();
+				data[i][2] = filmCD.getDirector();
+				data[i][3] = filmCD.getActor();
+				data[i][4] = filmCD.getQuantity() + "";
+				data[i][5] = filmCD.getOutPrice() + "";
+				data[i][6] = filmCD.getInPrice() + "";
+			}
+		}
+
+		return data;
+	}
+	
+	
+	
+	// Convert list of Product => Array 2D
+//	private String[][] convertData(ArrayList listProduct) {
 //		int size = list.size();
 //		String data[][] = new String[size][titleCols.length];
 //		for (int i = 0; i < size; i++) {
@@ -135,6 +276,6 @@ public class TableProductView extends JPanel{
 //		}
 //		return data;
 //	}
-//	
+	
 	
 }
