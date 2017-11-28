@@ -3,6 +3,7 @@ package mediaone.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 
 import mediaone.model.Staff;
@@ -131,8 +132,7 @@ public class StaffRepositoryImpl implements StaffRepository{
 	}
 	
 	@Override
-	public Staff update(Staff staff) {
-		String idStaff = staff.getIdStaff();
+	public Staff update(Staff staff, String oldId) {
 		String newnameStaff = staff.getNameStaff();
 		String newpass = staff.getPass();
 		Double newsalary = staff.getSalary();
@@ -149,7 +149,7 @@ public class StaffRepositoryImpl implements StaffRepository{
 			preStatement.setString(2, newpass);
 			preStatement.setDouble(3, newsalary);
 			preStatement.setInt(4, newdays);
-			preStatement.setString(5, idStaff);
+			preStatement.setString(5, oldId);
 			
 			int rows = preStatement.executeUpdate();
 			if (rows > 0) System.out.println("Updated");
@@ -161,6 +161,108 @@ public class StaffRepositoryImpl implements StaffRepository{
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;	
+		}
+	}
+	
+	@Override
+	public boolean updatePass(String id, String newpass) {
+		Connection conn = ConnectionUtils.getConnection();
+		PreparedStatement preStatement = null;
+		
+		try {
+			String sql = "UPDATE nhanvien SET PassWord=? WHERE MaNhanVien=?";
+			preStatement= conn.prepareStatement(sql);
+			preStatement.setString(1, newpass);
+			preStatement.setString(2, id);
+			
+			int rows = preStatement.executeUpdate();
+			if (rows > 0) System.out.println("Updated");
+			preStatement.close();
+			conn.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	@Override
+	public String getPassAdmin() {
+		Connection conn = ConnectionUtils.getConnection();
+		Statement statement = null;
+		String passAdmin = "";
+		
+		try {
+			String sql = "SELECT * FROM admin";
+			statement = conn.createStatement();
+			ResultSet result =statement.executeQuery(sql);
+			
+			while (result.next()) {
+				passAdmin = result.getString("password");
+			}
+			
+			result.close();
+			statement.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			ConnectionUtils.closeConnection();
+		}
+		
+		return passAdmin;
+	}
+	
+	@Override
+	public String getPassEmpl (String idStaff) {
+		Connection conn = ConnectionUtils.getConnection();
+		String passEmpl = "";
+		PreparedStatement preStatement = null;
+		String sql = "SELECT * FROM nhanvien WHERE MaNhanVien=?";
+		
+		try {
+			preStatement = conn.prepareStatement(sql);
+			preStatement.setString(1, idStaff);
+			ResultSet result =preStatement.executeQuery();
+			
+			while (result.next()) {
+				passEmpl = result.getString("PassWord");
+			}
+			
+			result.close();
+			preStatement.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			ConnectionUtils.closeConnection();
+		}
+		
+		return passEmpl;
+	}
+	
+	@Override
+	public void updatePassAdmin(String newpass) {
+		Connection conn = ConnectionUtils.getConnection();
+		PreparedStatement preStatement = null;
+		
+		try {
+			String sql = "UPDATE admin SET pass=?";
+			preStatement = conn.prepareStatement(sql);
+			preStatement.setString(1, newpass);
+			
+			int rows = preStatement.executeUpdate();
+			if (rows > 0) System.out.println("Changed");
+			
+			preStatement.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			ConnectionUtils.closeConnection();
 		}
 	}
 }
