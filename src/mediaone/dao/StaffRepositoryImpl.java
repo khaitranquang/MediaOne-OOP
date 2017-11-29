@@ -165,7 +165,7 @@ public class StaffRepositoryImpl implements StaffRepository{
 	}
 	
 	@Override
-	public boolean updatePass(String id, String newpass) {
+	public boolean changePass(String id, String newpass) {
 		Connection conn = ConnectionUtils.getConnection();
 		PreparedStatement preStatement = null;
 		
@@ -244,7 +244,7 @@ public class StaffRepositoryImpl implements StaffRepository{
 	}
 	
 	@Override
-	public void updatePassAdmin(String newpass) {
+	public void changePassAdmin(String newpass) {
 		Connection conn = ConnectionUtils.getConnection();
 		PreparedStatement preStatement = null;
 		

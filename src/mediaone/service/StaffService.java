@@ -43,9 +43,9 @@ public class StaffService {
 	
 	public void changePassFromDB(String account, String newPass) {
 		if (account.equals("admin")) {
-			staffRepository.updatePassAdmin(newPass);
+			staffRepository.changePassAdmin(newPass);
 		} else {
-			staffRepository.updatePass(account, newPass);
+			staffRepository.changePass(account, newPass);
 		}
 	}
 	
