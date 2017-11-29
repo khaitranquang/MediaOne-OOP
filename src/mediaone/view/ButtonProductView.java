@@ -3,6 +3,7 @@ package mediaone.view;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -30,6 +31,11 @@ public class ButtonProductView extends JPanel{
 	
 	private JPanel createButtonPanel() {
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 3, 10, 10));
+		
+		btnAdd.setIcon(new ImageIcon(this.getClass().getResource("/mediaone/resource/add-icon.png")));
+		btnEdit.setIcon(new ImageIcon(this.getClass().getResource("/mediaone/resource/edit-icon.png")));
+		btnDelete.setIcon(new ImageIcon(this.getClass().getResource("/mediaone/resource/cancel-icon.png")));
+			
 		buttonPanel.add(btnAdd);
 		buttonPanel.add(btnEdit);
 		buttonPanel.add(btnDelete);

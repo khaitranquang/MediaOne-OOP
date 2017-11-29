@@ -7,6 +7,7 @@ public class MainUI extends JFrame{
 	private PanelManagerProduct managerProduct;
 	private PanelManagerStaff managerStaff;
 	private PanelManagerBill managerBill;
+	private PanelAccount panelAccount;
 	
 	public PanelManagerProduct getManagerProduct() {
 		return managerProduct;
@@ -17,7 +18,10 @@ public class MainUI extends JFrame{
 	public PanelManagerBill getManagerBill() {
 		return managerBill;
 	}
-
+	public PanelAccount getPanelAccount() {
+		return panelAccount;
+	}
+	
 	public MainUI() {
 		createGUI();
 		setDisplay();
@@ -43,6 +47,8 @@ public class MainUI extends JFrame{
 		tabbedPane.addTab("Quản lí nhân viên", null, managerStaff, "Quản lí nhân viên");
 		managerBill = new PanelManagerBill();
 		tabbedPane.addTab("Quản lí bán hàng", null, managerBill, "Quản lí bán hàng");
+		panelAccount = new PanelAccount();
+		tabbedPane.addTab("Quản lí tài khoản", null, panelAccount, "Quản lí tài khoản");
 		
 		return tabbedPane;
 	}

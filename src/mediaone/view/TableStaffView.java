@@ -15,7 +15,7 @@ public class TableStaffView extends JPanel{
 	public static final int TABLE_STAFF_WIDTH  = 950;
 	public static final int TABLE_STAFF_HEIGHT = 350;
 	private JTable table;
-	private String[] titleCols = {"Mã nhân viên", "Tên nhân viên", "Lương"};
+	private String[] titleCols = {"Mã nhân viên", "Tên nhân viên", "Lương", "Số buổi đi làm"};
 	
 	public JTable getTable() {
 		return table;

@@ -3,6 +3,7 @@ package mediaone.view;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -34,6 +35,12 @@ public class ButtonBillView extends JPanel{
 	
 	private JPanel createButtonPanel() {
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 4, 10, 10));
+		
+		btnAdd.setIcon(new ImageIcon(this.getClass().getResource("/mediaone/resource/add-buy-icon.png")));
+		btnStatistic.setIcon(new ImageIcon(this.getClass().getResource("/mediaone/resource/chart-add-icon.png")));
+		btnDetail.setIcon(new ImageIcon(this.getClass().getResource("/mediaone/resource/detail-icon.png")));
+		btnDelete.setIcon(new ImageIcon(this.getClass().getResource("/mediaone/resource/cancel-icon.png")));
+		
 		buttonPanel.add(btnAdd);
 		buttonPanel.add(btnStatistic);
 		buttonPanel.add(btnDetail);
