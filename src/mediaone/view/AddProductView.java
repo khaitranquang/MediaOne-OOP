@@ -13,9 +13,9 @@ public class AddProductView extends JDialog{
 	private MainUI mainUI;
 	private ProductInformation productInformation;
 	
-	private JButton btnAdd    = new JButton("THÊM");
-	private JButton btnReset  = new JButton("TẠO LẠI");
-	private JButton btnCancel = new JButton("HỦY");
+	private JButton btnAdd    = new JButton("Thêm");
+	private JButton btnReset  = new JButton("Tạo lại");
+	private JButton btnCancel = new JButton("Hủy");
 	
 	public ProductInformation getProductInformation() {
 		return productInformation;

@@ -1,27 +1,56 @@
 package mediaone.service;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import mediaone.dao.MusicCDRepository;
+import mediaone.dao.ProductRepository;
 import mediaone.model.MusicCD;
-import mediaone.model.Statistic;
 
-public interface MusicCDService {
+public class MusicCDService implements ProductService<MusicCD>{
+	ProductRepository<MusicCD> productRepository = new MusicCDRepository();
 	
-	// Get one MusicCD
-	public MusicCD getMusicCD();
+	@Override
+	public List<MusicCD> findAll() {
+		return productRepository.findAll();
+	}
+
+	@Override
+	public MusicCD add(MusicCD product) {
+		if (product.getQuantity() < 0 || product.getInPrice() < 0 || product.getOutPrice() < 0) {
+			return null;
+		}
+		if (productRepository.findOne(product.getIdProduct()) != null) {
+			return productRepository.update(product);
+		}
+		return productRepository.add(product);
+	}
+
+	@Override
+	public List<MusicCD> findBySpecialProps(MusicCD product) {
+		List<MusicCD> musicCDs = productRepository.findAll();
 		
-	// Get all MusicCD from database
-	public ArrayList<MusicCD> getAllMusicCD();
-		
-	// Update one MusicCD
-	public boolean updateMusicCD ();
-		
-	// Insert one MusicCD
-	public boolean insertMusicCD ();
-		
-	// Delete one MusicCD
-	public boolean deleteMusicCD ();
-		
-	// Statistic MusicCD
-	public ArrayList<Statistic> statisticMusicCD(String colName);
+		return musicCDs.stream()
+					.filter(e->checkFilter(e, product))
+					.collect(Collectors.toList());	
+	}
+	
+	private boolean checkFilter(MusicCD musicCD, MusicCD filterMusicCD) {
+		return musicCD.getIdProduct().contains(filterMusicCD.getIdProduct()) 
+			   && musicCD.getSingerName().contains(filterMusicCD.getSingerName())
+			   && musicCD.getType().contains(filterMusicCD.getType());
+	}	
+	
+	@Override
+	public MusicCD update(MusicCD product) {
+		if (product.getQuantity() < 0 || product.getInPrice() < 0 || product.getOutPrice() < 0) {
+			return null;
+		}
+		return productRepository.update(product);
+	}
+
+	@Override
+	public boolean remove(String id) {
+		return productRepository.removeByID(id);
+	}
 }

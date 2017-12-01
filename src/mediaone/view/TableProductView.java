@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
@@ -21,7 +22,6 @@ import javax.swing.table.DefaultTableModel;
 import mediaone.model.Book;
 import mediaone.model.FilmCD;
 import mediaone.model.MusicCD;
-import mediaone.model.Product;
 
 public class TableProductView extends JPanel{
 	public static final int TABLE_PRODUCT_WIDTH  = 950;
@@ -31,10 +31,10 @@ public class TableProductView extends JPanel{
 	private String[] defaultTitle = {"Mã sản phẩm", "Tên sản phẩm", "Thuộc tính 1", "Thuộc tính 2",
 									"Số lượng", "Giá bán", "Giá nhập"};
 	private String[] titleBook = {"Mã sản phẩm", "Tên sản phẩm", "Nhà xuất bản", "Tác giả",
-								  "Số lượng", "Giá bán", "Giá nhập"};
+								  "Số lượng", "Gía bán", "Giá nhập"};
 	private String[] titleMusic = {"Mã sản phẩm", "Tên sản phẩm", "Tên ca sĩ", "Thể loại",
 			  					   "Số lượng", "Giá bán", "Giá nhập"};
-	private String[] titleFilm = {"Mã sản phẩm", "Tên sản phẩm", "Đạo diễn", "Diễn viên",
+	private String[] titleFilm = {"Mã sản phẩm", "Tên sản phẩm", "Đạo diễn", "Thể loại",
 			  					  "Số lượng", "Giá bán", "Giá nhập"};
 	private int mode = 0;
 	
@@ -44,7 +44,7 @@ public class TableProductView extends JPanel{
 	
 	private String[] searchBook = {"Nhà xuất bản", "Tác giả"};
 	private String[] searchMusicCD = {"Tên ca sĩ", "Thể loại"};
-	private String[] searchFilmCD = {"Đạo diễn", "Diễn viên"};
+	private String[] searchFilmCD = {"Đạo diễn", "Thể loại"};
 	private JTextField tfSearch = new JTextField();
 	private JComboBox<String> cbSearch;
 	
@@ -163,7 +163,7 @@ public class TableProductView extends JPanel{
 	}
 	
 	// Update Model of table
-	public void updateTableBook(ArrayList<Book> listBook) {
+	public void updateTableBook(List<Book> listBook) {
 		SwingUtilities.invokeLater(new Runnable(){public void run(){
 		    //Update the model here
 			String data[][] = convertData(listBook, 0);
@@ -178,7 +178,7 @@ public class TableProductView extends JPanel{
 		}});
 	}
 	
-	public void updateTableMusicCD(ArrayList<MusicCD> listMusicCD) {
+	public void updateTableMusicCD(List<MusicCD> listMusicCD) {
 		SwingUtilities.invokeLater(new Runnable(){public void run(){
 		    //Update the model here
 			String data[][] = convertData(listMusicCD, 1);
@@ -193,7 +193,7 @@ public class TableProductView extends JPanel{
 		}});
 	}
 	
-	public void updateTableFilmCD(ArrayList<FilmCD> listFilmCD) {
+	public void updateTableFilmCD(List<FilmCD> listFilmCD) {
 		SwingUtilities.invokeLater(new Runnable(){public void run(){
 		    //Update the model here
 			String data[][] = convertData(listFilmCD, 2);
@@ -208,7 +208,7 @@ public class TableProductView extends JPanel{
 		}});
 	}
 	
-	private String[][] convertData(ArrayList listProduct, int mode) {
+	private String[][] convertData(List listProduct, int mode) {
 		int size = listProduct.size();
 		String[][] data = new String[size][7];
 		
@@ -245,7 +245,7 @@ public class TableProductView extends JPanel{
 				data[i][0] = filmCD.getIdProduct();
 				data[i][1] = filmCD.getNameProduct();
 				data[i][2] = filmCD.getDirector();
-				data[i][3] = filmCD.getActor();
+				data[i][3] = filmCD.getType();
 				data[i][4] = filmCD.getQuantity() + "";
 				data[i][5] = filmCD.getOutPrice() + "";
 				data[i][6] = filmCD.getInPrice() + "";

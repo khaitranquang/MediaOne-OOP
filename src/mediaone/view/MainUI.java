@@ -28,7 +28,7 @@ public class MainUI extends JFrame{
 	}
 	
 	private void setDisplay() {
-		setTitle("MedieOne - Nhóm ...");
+		setTitle("MedieOne - Nhóm...");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1100, 600);
 		setLocationRelativeTo(null);
@@ -48,7 +48,7 @@ public class MainUI extends JFrame{
 		managerBill = new PanelManagerBill();
 		tabbedPane.addTab("Quản lí bán hàng", null, managerBill, "Quản lí bán hàng");
 		panelAccount = new PanelAccount();
-		tabbedPane.addTab("Quản lí tài khoản", null, panelAccount, "Quản lí tài khoản");
+		tabbedPane.addTab("Quản lí tài khoản", null, panelAccount, "Quản lí tài khoảnn");
 		
 		return tabbedPane;
 	}

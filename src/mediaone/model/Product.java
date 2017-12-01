@@ -5,25 +5,12 @@ public class Product {
 	private String nameProduct;
 	private int quantity;
 	private double outPrice;
-	
 	private double inPrice;
-	
-	public String getIdProduct() {
-		return idProduct;
+
+	public Product() {
+
 	}
-	public String getNameProduct() {
-		return nameProduct;
-	}
-	public int getQuantity() {
-		return quantity;
-	}
-	public double getOutPrice() {
-		return outPrice;
-	}
-	public double getInPrice() {
-		return inPrice;
-	}
-	
+
 	public Product(String idProduct, String nameProduct, int quantity, double outPrice, double inPrice) {
 		super();
 		this.idProduct = idProduct;
@@ -33,10 +20,49 @@ public class Product {
 		this.inPrice = inPrice;
 	}
 
+	public String getIdProduct() {
+		return idProduct;
+	}
+
+	public double getInPrice() {
+		return inPrice;
+	}
+
+	public String getNameProduct() {
+		return nameProduct;
+	}
+
+	public double getOutPrice() {
+		return outPrice;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setIdProduct(String idProduct) {
+		this.idProduct = idProduct;
+	}
+
+	public void setInPrice(double inPrice) {
+		this.inPrice = inPrice;
+	}
+
+	public void setNameProduct(String nameProduct) {
+		this.nameProduct = nameProduct;
+	}
+
+	public void setOutPrice(double outPrice) {
+		this.outPrice = outPrice;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	@Override
 	public String toString() {
 		return "Product \n[idProduct=" + idProduct + ",\n nameProduct=" + nameProduct + ",\n quantity=" + quantity
 				+ ",\n outPrice=" + outPrice + ",\n inPrice=" + inPrice + "]";
 	}
-
 }

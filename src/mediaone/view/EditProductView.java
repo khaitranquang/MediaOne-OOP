@@ -12,8 +12,8 @@ public class EditProductView extends JDialog{
 	private MainUI mainUI;
 	private ProductInformation productInformation;
 	
-	private JButton btnEdit   = new JButton("SỬA");
-	private JButton btnCancel = new JButton("HỦY");
+	private JButton btnEdit   = new JButton("Sửa");
+	private JButton btnCancel = new JButton("Hủy");
 	
 	public ProductInformation getProductInformation() {
 		return productInformation;
@@ -29,7 +29,7 @@ public class EditProductView extends JDialog{
 		this.mainUI = mainUI;
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setResizable(false);
-		setTitle("Sửa Sản phẩm");
+		setTitle("Sửa sản phẩm");
 		productInformation = new ProductInformation();
 		add(createMainPanel());
 		pack();      					//Auto update UI
