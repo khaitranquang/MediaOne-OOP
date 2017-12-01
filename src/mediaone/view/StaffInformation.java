@@ -43,7 +43,7 @@ public class StaffInformation extends JPanel{
 	}
 	
 	private JPanel createPanelTextField() {
-		JPanel panel = new JPanel (new GridLayout(7, 1, 5, 5));
+		JPanel panel = new JPanel (new GridLayout(3, 1, 5, 5));
 		panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
 		tfIdStaff   = new JTextField(30);			panel.add(tfIdStaff);

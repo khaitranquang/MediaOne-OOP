@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import mediaone.model.Staff;
@@ -15,7 +16,7 @@ public class StaffRepositoryImpl implements StaffRepository{
 	public List<Staff> findAll() {
 		Connection conn = ConnectionUtils.getConnection();
 		PreparedStatement preStatement;
-		List<Staff> list= null;
+		List<Staff> list = new ArrayList<Staff>();
 		
 		try {
 			String sql = "SELECT * FROM nhanvien";

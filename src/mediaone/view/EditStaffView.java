@@ -12,8 +12,8 @@ public class EditStaffView extends JDialog{
 	private MainUI mainUI;
 	private StaffInformation staffInformation;
 	
-	private JButton btnEdit   = new JButton("SỬA");
-	private JButton btnCancel = new JButton("HỦY");
+	private JButton btnEdit   = new JButton("Sửa");
+	private JButton btnCancel = new JButton("Hủy");
 	
 	public StaffInformation getStaffInformation() {
 		return staffInformation;
@@ -29,7 +29,7 @@ public class EditStaffView extends JDialog{
 		this.mainUI = mainUI;
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setResizable(false);
-		setTitle("Sửa Nhân viên");
+		setTitle("Sửa nhân viên");
 		staffInformation = new StaffInformation();
 		add(createMainPanel());
 		pack();      					//Auto update UI
