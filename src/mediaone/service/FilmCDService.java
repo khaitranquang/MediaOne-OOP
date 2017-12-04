@@ -53,4 +53,9 @@ public class FilmCDService implements ProductService<FilmCD>{
 	public boolean remove(String id) {
 		return productRepository.removeByID(id);
 	}
+
+	@Override
+	public FilmCD findOne(String id) {
+		return productRepository.findOne(id);
+	}
 }

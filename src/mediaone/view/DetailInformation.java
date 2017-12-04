@@ -47,7 +47,7 @@ public class DetailInformation extends JPanel{
 	
 	private JPanel createHeaderPanel() {
 		JPanel header = new JPanel (new GridLayout(5, 2, 10, 10));
-		header.add(new JLabel("Mã mượn trả:      "));	  		header.add(lbIdBill    = new JLabel());
+		header.add(new JLabel("Mã hóa đơn:      "));	  		header.add(lbIdBill    = new JLabel());
 		header.add(new JLabel("Mã nhân viên:     "));			header.add(lbIdStaff   = new JLabel());
 		header.add(new JLabel("Họ tên nhân viên: "));			header.add(lbNameStaff = new JLabel());
 		return header;

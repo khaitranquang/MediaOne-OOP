@@ -27,7 +27,7 @@ public class PanelManagerBill extends JPanel{
 	
 	private JPanel createTitlePanel() {
 		JPanel panel = new JPanel();
-	JLabel label = new JLabel("Quản lí Bán hàng");
+	JLabel label = new JLabel("Quản lí bán hàng");
 		label.setFont(new Font("Caribli", Font.BOLD, 18));
 		label.setForeground(Color.BLUE);;
 		panel.add(label);

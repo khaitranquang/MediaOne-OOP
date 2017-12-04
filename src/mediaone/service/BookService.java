@@ -52,5 +52,10 @@ public class BookService implements ProductService<Book> {
 	@Override
 	public boolean remove(String id) {
 		return productRepository.removeByID(id);
+	}
+
+	@Override
+	public Book findOne(String id) {
+		return productRepository.findOne(id);
 	}	
 }

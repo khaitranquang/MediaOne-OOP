@@ -10,8 +10,37 @@ import mediaone.model.Staff;
 
 public class StaffService {
 	
-	private StaffRepositoryImpl staffRepository;
+	private StaffRepositoryImpl staffRepository = new StaffRepositoryImpl();
 	
+	public List<Staff> findAll() {
+		return staffRepository.findAll();
+	}
+	
+	public Staff add(Staff staff) {
+		if (staff.getSalary() < 0) {
+			return null;
+		}
+		if (staffRepository.findOne(staff.getIdStaff()) != null) {
+			return staffRepository.update(staff);
+		}
+		return staffRepository.add(staff);
+	}
+	
+	public Staff update(Staff staff) {
+		if (staff.getSalary() < 0) {
+			return null;
+		}
+		return staffRepository.update(staff);
+	}
+	
+	public boolean remove (String id) {
+		return staffRepository.removeByID(id);
+	}
+	
+	public Staff findOne (String id) {
+		return staffRepository.findOne(id);
+	}
+
 	public boolean checkID(String id) {
 		List<Staff> listStaff = staffRepository.findAll();
 		for (int i = 0; i < listStaff.size(); i++) {
@@ -29,7 +58,7 @@ public class StaffService {
 		}
 		else {
 			List<Staff> listEmpl = staffRepository.findAll();
-			List<String> listidStaff = null;
+			List<String> listidStaff = new ArrayList<String>();
 			for (int i = 0; i < listEmpl.size(); i++) {
 				listidStaff.add(listEmpl.get(i).getIdStaff());
 			}
@@ -57,7 +86,7 @@ public class StaffService {
 		int newdays= staff.getDays();
 		newdays++;
 		staff = new Staff(id, nameStaff, pass, salary, newdays);
-		staffRepository.update(staff, id);
+		staffRepository.update(staff);
 		
 		return newdays;
 	}
@@ -72,7 +101,7 @@ public class StaffService {
 		countsalary=salary*newdays;
 		newdays=0;
 		staff = new Staff(id, nameStaff, pass, salary, newdays);
-		staffRepository.update(staff, id);
+		staffRepository.update(staff);
 		return countsalary;
 		
 	}

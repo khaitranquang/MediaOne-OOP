@@ -20,8 +20,8 @@ public class StaffRepositoryImpl implements StaffRepository{
 		
 		try {
 			String sql = "SELECT * FROM nhanvien";
-			preStatement = conn.prepareStatement(sql);
-			ResultSet result = preStatement.executeQuery();
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery(sql);
 			
 			while (result.next()) {
 				list.add(new Staff(
@@ -34,7 +34,7 @@ public class StaffRepositoryImpl implements StaffRepository{
 			}
 			
 			result.close();
-			preStatement.close();
+			statement.close();
 			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -108,7 +108,8 @@ public class StaffRepositoryImpl implements StaffRepository{
 	}
 	
 	@Override
-	public Staff removebyid(String id) {
+	public boolean removeByID(String id) {
+		boolean flag = false;
 		Connection conn = ConnectionUtils.getConnection();
 		PreparedStatement preStatement = null;
 		Staff staff = null;
@@ -121,7 +122,7 @@ public class StaffRepositoryImpl implements StaffRepository{
 			
 			int rows = preStatement.executeUpdate();
 			if (rows > 0) System.out.println("Deleted");
-			
+			flag = true;
 			//Close connection
 			preStatement.close();
 			conn.close();
@@ -129,15 +130,15 @@ public class StaffRepositoryImpl implements StaffRepository{
 			e.printStackTrace();
 		}
 		
-		return staff;
+		return flag;
 	}
 	
 	@Override
-	public Staff update(Staff staff, String oldId) {
-		String newnameStaff = staff.getNameStaff();
-		String newpass = staff.getPass();
-		Double newsalary = staff.getSalary();
-		int newdays = staff.getDays();
+	public Staff update(Staff staff) {
+		String newNameStaff = staff.getNameStaff();
+		String newPass = staff.getPass();
+		Double newSalary = staff.getSalary();
+		int newDays = staff.getDays();
 		
 		Connection conn = ConnectionUtils.getConnection();
 		PreparedStatement preStatement = null;
@@ -146,11 +147,11 @@ public class StaffRepositoryImpl implements StaffRepository{
 			String sql = "UPDATE nhanvien SET TenNhanVien=?, PassWord=?, LuongCB=?, "
 					+ "SoNgay=? WHERE MaNhanVien=?";
 			preStatement = conn.prepareStatement(sql);
-			preStatement.setString(1, newnameStaff);
-			preStatement.setString(2, newpass);
-			preStatement.setDouble(3, newsalary);
-			preStatement.setInt(4, newdays);
-			preStatement.setString(5, oldId);
+			preStatement.setString(1, newNameStaff);
+			preStatement.setString(2, newPass);
+			preStatement.setDouble(3, newSalary);
+			preStatement.setInt(4, newDays);
+			preStatement.setString(5, staff.getIdStaff());
 			
 			int rows = preStatement.executeUpdate();
 			if (rows > 0) System.out.println("Updated");
@@ -201,7 +202,7 @@ public class StaffRepositoryImpl implements StaffRepository{
 			while (result.next()) {
 				passAdmin = result.getString("password");
 			}
-			
+			System.out.println(passAdmin);
 			result.close();
 			statement.close();
 			conn.close();

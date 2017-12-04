@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 public class ButtonBillView extends JPanel{
-	private JButton btnAdd = new JButton("Thêm Hóa Đơn");
+	private JButton btnAdd = new JButton("Thêm hóa đơn");
 	private JButton btnStatistic = new JButton("Thống kê");
 	private JButton btnDetail = new JButton("Xem chi tiết");
 	private JButton btnDelete = new JButton("Xóa");

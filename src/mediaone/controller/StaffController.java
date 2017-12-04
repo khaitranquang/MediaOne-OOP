@@ -20,7 +20,7 @@ import mediaone.view.TableStaffView;
 public class StaffController {
 	private MainUI mainUI;
 	private StaffService staffService;
-	private StaffRepositoryImpl staffRepositoryImpl;
+//	private StaffRepositoryImpl staffRepositoryImpl;
 	private JButton btnSalary;
 	private JButton btnAdd;
 	private JButton btnEdit;
@@ -31,28 +31,31 @@ public class StaffController {
 	public StaffController(MainUI mainUI) {
 		this.mainUI = mainUI;
 		staffService = new StaffService();
-		staffRepositoryImpl = new StaffRepositoryImpl();
+//		staffRepositoryImpl = new StaffRepositoryImpl();
+		
+		/* Initialize view */
 		btnSalary = mainUI.getManagerStaff().getButtonStaffView().getBtnSalary();
 		btnAdd = mainUI.getManagerStaff().getButtonStaffView().getBtnAdd();
 		btnEdit = mainUI.getManagerStaff().getButtonStaffView().getBtnEdit();
 		btnDelete = mainUI.getManagerStaff().getButtonStaffView().getBtnDelete();
 		tableStaffView = mainUI.getManagerStaff().getTableStaffView();
-		tableStaffView.updateTable(staffRepositoryImpl.findAll());
+		tableStaffView.updateTable(staffService.findAll());
 		
+		/*
+		 * Set Actions for button
+		 */
 		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				actionAddStaff();
 			}
 		});
-		
 		btnEdit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				actionEditStaff();
 			}
 		});
-		
 		btnDelete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -63,16 +66,18 @@ public class StaffController {
 	
 	/*
 	 * Add Staff
+	 * Show addStaff Dialog, get buttons on dialog and handle events
 	 */
 	private void actionAddStaff() {
+		/* Show addStaff Dialog */
 		AddStaffView addStaffView = new AddStaffView(mainUI);
 		StaffInformation staffInformation = addStaffView.getStaffInformation();
 		addStaffView.setVisible(true);
-		
+		/* Get all buttons on dialog */
 		JButton btnAddStaff = addStaffView.getBtnAdd();
 		JButton btnReset = addStaffView.getBtnReset();
 		JButton btnCancel = addStaffView.getBtnCancel();
-		
+		/* Handle events */
 		btnAddStaff.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -81,8 +86,8 @@ public class StaffController {
 				Double salary = Double.parseDouble(staffInformation.getTfSalary().getText().toString());
 				
 				Staff staff = new Staff(idStaff, nameStaff, idStaff, salary, 0);
-				staffRepositoryImpl.add(staff);
-				tableStaffView.updateTable(staffRepositoryImpl.findAll());
+				staffService.add(staff);
+				tableStaffView.updateTable(staffService.findAll());
 				addStaffView.setVisible(false);
 			}
 		});
@@ -110,29 +115,31 @@ public class StaffController {
 	
 	/*
 	 * Edit Staff
+	 * Get index of row. If one row is selected, we will show editStaff Dialog
 	 */
 	private void actionEditStaff() {
 		int index = findIndexOfData();
 		if (index >= 0) {
+			/* Show editStaff dialog and load information of staff for this dialog */
 			String idStaff = getValueFromTable(index, 0);
 			EditStaffView editStaffView = new EditStaffView(mainUI);
 			loadInfor(idStaff, editStaffView);
 			editStaffView.setVisible(true);
-			
+			/* Get all buttons on dialog */
 			JButton btnEdit = editStaffView.getBtnEdit();
 			JButton btnCancel = editStaffView.getBtnCancel();
 			/* confirm update this staff */
 			btnEdit.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					Staff oldStaff = staffRepositoryImpl.findOne(idStaff);
+					Staff oldStaff = staffService.findOne(idStaff);
 					String pass = oldStaff.getPass();
 					int days = oldStaff.getDays();
 					String newNameStaff = editStaffView.getStaffInformation().getTfNameStaff().getText().toString();
 					Double newSalary = Double.parseDouble(editStaffView.getStaffInformation().getTfSalary().getText().toString());
 					Staff staff = new Staff(idStaff, newNameStaff, pass, newSalary, days);
-					staffRepositoryImpl.update(staff, idStaff);
-					tableStaffView.updateTable(staffRepositoryImpl.findAll());
+					staffService.update(staff);
+					tableStaffView.updateTable(staffService.findAll());
 					editStaffView.setVisible(false);
 				}
 			});
@@ -165,7 +172,7 @@ public class StaffController {
 	/* Load information of staff */
 	private void loadInfor(String id, EditStaffView editStaffView) {
 		StaffInformation staffInformation = editStaffView.getStaffInformation();
-		Staff oldStaff = staffRepositoryImpl.findOne(id);
+		Staff oldStaff = staffService.findOne(id);
 		staffInformation.getTfIdStaff().setText(id);
 		staffInformation.getTfIdStaff().setEditable(false);
 		staffInformation.getTfNameStaff().setText(oldStaff.getNameStaff());
@@ -183,10 +190,9 @@ public class StaffController {
 					 JOptionPane.QUESTION_MESSAGE, null, null, null);
 			if (select == 0) {
 				String idStaff = getValueFromTable(indexOfRow, 0);
-				staffRepositoryImpl.removebyid(idStaff);
-				tableStaffView.updateTable(staffRepositoryImpl.findAll());
+				staffService.remove(idStaff);
+				tableStaffView.updateTable(staffService.findAll());
 			}
-		
 		}
 		else {
 			JOptionPane.showMessageDialog(new JDialog(), "Chọn 1 nhân viên để xóa");

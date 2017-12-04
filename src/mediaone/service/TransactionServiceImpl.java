@@ -26,8 +26,8 @@ public class TransactionServiceImpl implements TransactionService {
 		List<Product> products = detailBill.getProducts();
 		for (Product product : products) {
 			Product repoProduct = productRepository.findOne(product.getIdProduct());
-			product.setQuantity(repoProduct.getQuantity() - product.getQuantity());
-			productRepository.update(product);
+			repoProduct.setQuantity(repoProduct.getQuantity() - product.getQuantity());
+			productRepository.update(repoProduct);
 		}
 		return detailBill.getPrice();
 	}

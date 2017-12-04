@@ -53,4 +53,9 @@ public class MusicCDService implements ProductService<MusicCD>{
 	public boolean remove(String id) {
 		return productRepository.removeByID(id);
 	}
+
+	@Override
+	public MusicCD findOne(String id) {
+		return productRepository.findOne(id);
+	}
 }

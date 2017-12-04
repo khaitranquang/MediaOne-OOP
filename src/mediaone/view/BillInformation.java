@@ -18,7 +18,7 @@ import javax.swing.border.TitledBorder;
 
 public class BillInformation extends JPanel{
 	private JTextField tfIdBill;
-	private JComboBox<String> cbIdStaff;
+	private JLabel lbIdStaff;
 	private JTextField tfIdProduct;
 	private JTextField tfQuantity;
 	private JTextField tfExportDate;
@@ -34,7 +34,7 @@ public class BillInformation extends JPanel{
 		JScrollPane scroll = new JScrollPane(rightPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 	            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll.setPreferredSize(new Dimension(430, 400));
-		scroll.setBorder(new TitledBorder("Sách mượn"));
+		scroll.setBorder(new TitledBorder("Sản phẩm mua"));
 		
 		add(scroll);
 		repaint();
@@ -44,8 +44,8 @@ public class BillInformation extends JPanel{
 	public JTextField getTfIdBill() {
 		return tfIdBill;
 	}
-	public JComboBox<String> getCbIdStaff() {
-		return cbIdStaff;
+	public JLabel getLbIdStaff() {
+		return lbIdStaff;
 	}
 	public JTextField getTfIdProduct() {
 		return tfIdProduct;
@@ -129,7 +129,7 @@ public class BillInformation extends JPanel{
 	private JPanel createInputPanel() {
 		JPanel inputPanel = new JPanel(new GridLayout(4, 1, 5, 5));
 		inputPanel.add(tfIdBill = new JTextField(10));
-		inputPanel.add(cbIdStaff = new JComboBox<String>());
+		inputPanel.add(lbIdStaff = new JLabel());
 		inputPanel.add(tfIdProduct = new JTextField(10));
 		inputPanel.add(tfExportDate = new JTextField(10));
 		return inputPanel;

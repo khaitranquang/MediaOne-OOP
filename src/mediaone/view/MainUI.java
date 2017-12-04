@@ -8,7 +8,14 @@ public class MainUI extends JFrame{
 	private PanelManagerStaff managerStaff;
 	private PanelManagerBill managerBill;
 	private PanelAccount panelAccount;
+	private String currentAccount = "";
 	
+	public String getCurrentAccount() {
+		return currentAccount;
+	}
+	public void setCurrentAccount(String currentAccount) {
+		this.currentAccount = currentAccount;
+	}
 	public PanelManagerProduct getManagerProduct() {
 		return managerProduct;
 	}
@@ -28,11 +35,11 @@ public class MainUI extends JFrame{
 	}
 	
 	private void setDisplay() {
-		setTitle("MedieOne - Nhóm...");
+		setTitle("MedieOne - Nhóm..." + "Account " + currentAccount);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1100, 600);
 		setLocationRelativeTo(null);
-		setVisible(true);
+		setVisible(false);
 	}
 	
 	private void createGUI() {

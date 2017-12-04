@@ -41,9 +41,9 @@ public class DetailBill {
 	}
 	
 	public Double getPrice() {
-		double sum = 0;
+		Double sum = 0.0;
 		for (Product product : products) {
-			sum+= product.getOutPrice() * product.getQuantity();
+			sum+= (Double) (product.getOutPrice() * product.getQuantity());
 		}
 		return sum;
 	}

@@ -41,6 +41,12 @@ public interface ProductService<T extends Product> {
 	 */
 	boolean remove(String id);
 	
+	/**
+	 * Get a product
+	 * @param id
+	 * @return Product has this id
+	 */
+	T findOne(String id);
 	
 	
 	

@@ -13,7 +13,7 @@ public class DetailView extends JDialog{
 	private MainUI mainUI;
 	private DetailInformation detailInformation;
 	
-	private JButton btnCancel = new JButton("HỦY");
+	private JButton btnCancel = new JButton("Hủy");
 	
 	public DetailInformation getDetailInformation() {
 		return detailInformation;
@@ -26,7 +26,7 @@ public class DetailView extends JDialog{
 		this.mainUI = mainUI;
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setResizable(false);
-		setTitle("Chi tiết hoá đơn");
+		setTitle("Chi tiết hóa đơn");
 	
 		detailInformation =  new DetailInformation();
 		

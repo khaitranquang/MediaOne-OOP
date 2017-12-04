@@ -14,7 +14,7 @@ public class TableDetailView extends JPanel{
 	private JTable table;
 	public static final int TABLE_DETAIL_WIDTH = 500;
 	public static final int TABLE_DETAIL_HEIGHT = 200;
-	private String[] titleItem = {"Mã SP", "Giá bán", "Số lượng mua"};
+	private String[] titleItem = {"Mã sản phẩm", "Giá bán", "Số lượng mua"};
 	
 	public JTable getTable() {
 		return table;
