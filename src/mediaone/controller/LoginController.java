@@ -57,6 +57,7 @@ public class LoginController {
 		new ProductController(mainUI);
 		new StaffController(mainUI);
 		new AddBillController(mainUI);
+		new StatisticController(mainUI);
 		new ShowDetailBillController(mainUI);
 	}
 	

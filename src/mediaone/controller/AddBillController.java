@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
@@ -205,6 +207,7 @@ public class AddBillController {
 		tableProductView.updateTableFilmCD(new FilmCDService().findAll());
 		clearInput();
 		tableBillView.updateTable(billServiceImpl.findAll());
+		JOptionPane.showMessageDialog(new JDialog(), "Tổng tiền khách phải thanh toán là: " + priceOfBill);
 		addBillView.setVisible(false);
 	}
 	

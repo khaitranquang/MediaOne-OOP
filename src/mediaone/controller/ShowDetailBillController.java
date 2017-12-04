@@ -42,7 +42,7 @@ public class ShowDetailBillController {
 		billRepositoryImpl = new BillRepositoryImpl();
 		transactionServiceImpl = new TransactionServiceImpl();
 		tableBillView = mainUI.getManagerBill().getTableBillView();
-		tableDetailView = new TableDetailView();
+//		tableDetailView = new TableDetailView();
 		btnShowDetail = mainUI.getManagerBill().getButtonBillView().getBtnDetail();
 		
 		btnShowEvent();
@@ -57,6 +57,7 @@ public class ShowDetailBillController {
 			public void actionPerformed(ActionEvent arg0) {
 				detailView = new DetailView(mainUI);
 				detailInformation = detailView.getDetailInformation();
+				tableDetailView = detailView.getDetailInformation().getTabelDetailView();
 				
 				int index = findIndexOfData();
 				if (index >= 0) {
@@ -107,6 +108,11 @@ public class ShowDetailBillController {
 			listProductIsBuy[i][1] = product.getOutPrice() + "";
 			listProductIsBuy[i][1] = product.getQuantity() + "";
 		}
+		
+		for (int i = 0; i < listProductIsBuy.length; i++) {
+			System.out.println(listProductIsBuy[i][0] + " out: " + listProductIsBuy[i][1] + "so luong: " + listProductIsBuy[i][1]);
+		}
+		
 		tableDetailView.updateTable(listProductIsBuy);
 		
 		Double price = bill.getDetailBill().getPrice();

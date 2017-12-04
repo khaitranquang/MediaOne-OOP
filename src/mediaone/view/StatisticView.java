@@ -30,7 +30,7 @@ public class StatisticView extends JDialog{
 	private JLabel lbNumberOfBill = new JLabel();
 	private JLabel lbMoney = new JLabel();
 	
-	private JButton btnStatistic = new JButton("Thống kê danh thu");
+	private JButton btnStatistic = new JButton("Thống kê doanh thu");
 	private JButton btnCancel = new JButton("Hủy bỏ");
 	
 	public JLabel getLbNumberOfBill() {
@@ -87,7 +87,7 @@ public class StatisticView extends JDialog{
 	private JPanel createLbPanel() {
 		JPanel lbPanel = new JPanel (new GridLayout(2, 1, 5, 5));
 		lbPanel.add(new JLabel("Ngày bắt đầu "));
-		lbPanel.add(new JLabel("Ngày kết thúc "));
+		lbPanel.add(new JLabel("Ngày kêt thúc "));
 		return lbPanel;
 	}
 	
