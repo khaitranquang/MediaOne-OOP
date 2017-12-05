@@ -3,7 +3,13 @@ package mediaone.model;
 public class MusicCD extends Product{
 	private String singerName;
 	private String type;
-		
+	
+	public void setSingerName(String singerName) {
+		this.singerName = singerName;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public String getSingerName() {
 		return singerName;
 	}
@@ -15,6 +21,10 @@ public class MusicCD extends Product{
 		super(idProduct, nameProduct, quantity, outPrice, inPrice);
 		this.singerName = singerName;
 		this.type = type;
+	}
+	
+	public MusicCD() {
+		
 	}
 	
 }

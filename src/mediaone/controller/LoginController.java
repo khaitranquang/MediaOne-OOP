@@ -59,6 +59,7 @@ public class LoginController {
 		new AddBillController(mainUI);
 		new StatisticController(mainUI);
 		new ShowDetailBillController(mainUI);
+		new DeleteBillController(mainUI);
 	}
 	
 	private void setActions() {
@@ -88,9 +89,11 @@ public class LoginController {
 //						tcm.removeColumn( tcm.getColumn(6) );
 						
 						mainUI.getManagerStaff().getButtonStaffView().setVisible(false);
+						mainUI.getManagerBill().getButtonBillView().getBtnAdd().setEnabled(true);
 					}
 					else {
 						mainUI.getManagerStaff().getButtonStaffView().setVisible(true);
+						mainUI.getManagerBill().getButtonBillView().getBtnAdd().setEnabled(false);
 					}
 					createController();
 					return;

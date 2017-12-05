@@ -36,9 +36,9 @@ public class MusicCDService implements ProductService<MusicCD>{
 	}
 	
 	private boolean checkFilter(MusicCD musicCD, MusicCD filterMusicCD) {
-		return musicCD.getIdProduct().contains(filterMusicCD.getIdProduct()) 
-			   && musicCD.getSingerName().contains(filterMusicCD.getSingerName())
-			   && musicCD.getType().contains(filterMusicCD.getType());
+		return musicCD.getIdProduct().indexOf(filterMusicCD.getIdProduct()) >= 0 
+			   && musicCD.getSingerName().indexOf(filterMusicCD.getSingerName()) >= 0
+			   && musicCD.getType().indexOf(filterMusicCD.getType()) >= 0;
 	}	
 	
 	@Override

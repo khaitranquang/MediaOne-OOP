@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 public class BillInformation extends JPanel{
@@ -118,8 +119,9 @@ public class BillInformation extends JPanel{
 	}
 	
 	private JPanel createLabelPanel() {
-		JPanel labelPanel = new JPanel(new GridLayout(4, 1, 5, 5));
-		labelPanel.add(new JLabel("Mã hóa đơn "));
+		JPanel labelPanel = new JPanel(new GridLayout(3, 1, 5, 5));
+//		labelPanel.add(new JLabel("Mã hóa đơn "));
+		labelPanel.setBorder(new EmptyBorder(40, 0, 40, 0));
 		labelPanel.add(new JLabel("Mã nhân viên "));
 		labelPanel.add(new JLabel("Mã sản phẩm "));
 		labelPanel.add(new JLabel("Ngày bán "));
@@ -127,8 +129,9 @@ public class BillInformation extends JPanel{
 	}
 	
 	private JPanel createInputPanel() {
-		JPanel inputPanel = new JPanel(new GridLayout(4, 1, 5, 5));
-		inputPanel.add(tfIdBill = new JTextField(10));
+		JPanel inputPanel = new JPanel(new GridLayout(3, 1, 5, 5));
+//		inputPanel.add(tfIdBill = new JTextField(10));
+		inputPanel.setBorder(new EmptyBorder(40, 0, 40, 0));
 		inputPanel.add(lbIdStaff = new JLabel());
 		inputPanel.add(tfIdProduct = new JTextField(10));
 		inputPanel.add(tfExportDate = new JTextField(10));
@@ -136,8 +139,9 @@ public class BillInformation extends JPanel{
 	}
 	
 	private JPanel createSubPanel() {
-		JPanel subPanel = new JPanel(new GridLayout(4, 1, 5, 5));
-		subPanel.add(new JLabel(""));
+		JPanel subPanel = new JPanel(new GridLayout(3, 1, 5, 5));
+//		subPanel.add(new JLabel(""));
+		subPanel.setBorder(new EmptyBorder(40, 0, 40, 0));
 		subPanel.add(lbNameStaff = new JLabel());
 		subPanel.add(createSoLuongPanel());
 		subPanel.add(new JLabel(""));

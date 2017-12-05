@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -11,6 +12,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import mediaone.dao.ProductRepositoryImpl;
 import mediaone.model.Book;
@@ -34,7 +36,7 @@ public class ProductController{
 	private JRadioButton radBook;
 	private JRadioButton radMusic;
 	private JRadioButton radFilm;
-//	private JTextField tfSearch;
+	private JTextField tfSearch;
 	private JComboBox<String> cbSearch;
 	private TableProductView tableProductView;
 	
@@ -43,13 +45,20 @@ public class ProductController{
 	private FilmCDService filmCDService;
 	private ProductRepositoryImpl productRepositoryImpl = new ProductRepositoryImpl();
 	
-	private int mode = 0;
+	List<Book> resultSearchBook;
+	List<MusicCD> resultSearchMusic;
+	List<FilmCD> resultSearchFilm;
 	
 	public ProductController(MainUI mainUI){
 		this.mainUI = mainUI;
 		bookService = new BookService();
 		musicCDService = new MusicCDService();
 		filmCDService = new FilmCDService();
+		
+		resultSearchBook = bookService.findAll();
+		resultSearchMusic = musicCDService.findAll();
+		resultSearchFilm = filmCDService.findAll();
+		
 		tableProductView = mainUI.getManagerProduct().getTableProductView();
 		btnAdd = mainUI.getManagerProduct().getButtonProductView().getBtnAdd();
 		btnEdit = mainUI.getManagerProduct().getButtonProductView().getBtnEdit();
@@ -57,17 +66,8 @@ public class ProductController{
 		radBook = mainUI.getManagerProduct().getTableProductView().getRadBook();
 		radMusic = mainUI.getManagerProduct().getTableProductView().getRadMusic();
 		radFilm = mainUI.getManagerProduct().getTableProductView().getRadFilm();
+		tfSearch = mainUI.getManagerProduct().getTableProductView().getTfSearch();
 		cbSearch = mainUI.getManagerProduct().getTableProductView().getCbSearch();
-		
-		
-		tableProductView.updateTableBook(bookService.findAll());
-
-//		btnAdd.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				actionsForBook();
-//			}
-//		});
 		
 		/* 
 		 * Update View when click radio button
@@ -100,6 +100,21 @@ public class ProductController{
 			}
 		});
 		
+		tfSearch.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(radBook.isSelected()) {
+					actionSearch(0);
+				}
+				else if (radMusic.isSelected()) {
+					actionSearch(1);
+				}
+				else if (radFilm.isSelected()) {
+					actionSearch(2);
+				}
+			}
+		});
+		
 		/* Add Action - Add product */
 		btnAdd.addActionListener(new ActionListener() {
 			@Override
@@ -125,6 +140,47 @@ public class ProductController{
 		});
 		
 	}
+	
+	/*
+	 * Action search
+	 */
+	private void actionSearch(int radIndexSelected) {
+		String textFind = tfSearch.getText().toString();
+		int indexCbSearch = cbSearch.getSelectedIndex();
+		
+		if (indexCbSearch == 0 && !textFind.trim().equals("")) {
+			Book bookTemplate = new Book("", "", 0, 0, 0, textFind, "");
+			MusicCD musicCDTemplate = new MusicCD("", "", 0, 0, 0, textFind, "");
+			FilmCD filmCDTemplate = new FilmCD("", "", 0, 0, 0, textFind, "");
+			resultSearchBook = bookService.findBySpecialProps(bookTemplate);
+			resultSearchMusic = musicCDService.findBySpecialProps(musicCDTemplate);
+			resultSearchFilm = filmCDService.findBySpecialProps(filmCDTemplate);
+		}
+		else if (indexCbSearch == 1 && !textFind.trim().equals("")) {
+			Book bookTemplate = new Book("", "", 0, 0, 0, "", textFind);
+			MusicCD musicCDTemplate = new MusicCD("", "", 0, 0, 0, "", textFind);
+			FilmCD filmCDTemplate = new FilmCD("", "", 0, 0, 0, "", textFind);
+			resultSearchBook = bookService.findBySpecialProps(bookTemplate);
+			resultSearchMusic = musicCDService.findBySpecialProps(musicCDTemplate);
+			resultSearchFilm = filmCDService.findBySpecialProps(filmCDTemplate);
+		}
+		else if (textFind.trim().equals("")) {
+			resultSearchBook = bookService.findAll();
+			resultSearchMusic = musicCDService.findAll();
+			resultSearchFilm = filmCDService.findAll();
+		}
+		/* Update table product */
+		if (radIndexSelected == 0) {
+			tableProductView.updateTableBook(resultSearchBook);
+		}
+		else if (radIndexSelected == 1) {
+			tableProductView.updateTableMusicCD(resultSearchMusic);
+		}
+		else if (radIndexSelected == 2) {
+			tableProductView.updateTableFilmCD(resultSearchFilm);
+		}
+	}
+	
 
 	/*
 	 * Add Product
@@ -175,18 +231,26 @@ public class ProductController{
 		btnAddBook.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String idProduct = productInformation.getTfIdProduct().getText().toString();
-				String nameProduct = productInformation.getTfNameProduct().getText().toString();
-				String publisher = productInformation.getTfProp1().getText().toString();
-				String author = productInformation.getTfProp2().getText().toString();
-				int quantity = Integer.parseInt(productInformation.getTfQuantity().getText().toString());
-				double outPrice = Double.parseDouble(productInformation.getTfOutPrice().getText().toString());
-				double inPrice = Double.parseDouble(productInformation.getTfInPrice().getText().toString());
-				
-				Book book = new Book(idProduct, nameProduct, quantity, outPrice, inPrice, publisher, author);
-				bookService.add(book);
-				tableProductView.updateTableBook(bookService.findAll());
-				addProductView.setVisible(false);
+				try {
+					String idProduct = productInformation.getTfIdProduct().getText().toString();
+					String nameProduct = productInformation.getTfNameProduct().getText().toString();
+					String publisher = productInformation.getTfProp1().getText().toString();
+					String author = productInformation.getTfProp2().getText().toString();
+					int quantity = Integer.parseInt(productInformation.getTfQuantity().getText().toString());
+					double outPrice = Double.parseDouble(productInformation.getTfOutPrice().getText().toString());
+					double inPrice = Double.parseDouble(productInformation.getTfInPrice().getText().toString());
+					Book book = new Book(idProduct, nameProduct, quantity, outPrice, inPrice, publisher, author);
+					
+					Book bookIsAdd = bookService.add(book);
+					if (bookIsAdd == null) {
+						JOptionPane.showMessageDialog(new JDialog(), "Các trường dữ liệu không được để trống - Các trường số không âm");
+					}
+					tableProductView.updateTableBook(bookService.findAll());
+					addProductView.setVisible(false);
+				}
+				catch(NumberFormatException ex) {
+					JOptionPane.showMessageDialog(new JDialog(), "Các trường số cần nhập đúng định dạng");
+				}
 			}
 		});
 		/* Clear input */
@@ -218,18 +282,27 @@ public class ProductController{
 		btnAddMusic.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String idProduct = productInformation.getTfIdProduct().getText().toString();
-				String nameProduct = productInformation.getTfNameProduct().getText().toString();
-				String singerName = productInformation.getTfProp1().getText().toString();
-				String type = productInformation.getTfProp2().getText().toString();
-				int quantity = Integer.parseInt(productInformation.getTfQuantity().getText().toString());
-				double outPrice = Double.parseDouble(productInformation.getTfOutPrice().getText().toString());
-				double inPrice = Double.parseDouble(productInformation.getTfInPrice().getText().toString());
+				try {
+					String idProduct = productInformation.getTfIdProduct().getText().toString();
+					String nameProduct = productInformation.getTfNameProduct().getText().toString();
+					String singerName = productInformation.getTfProp1().getText().toString();
+					String type = productInformation.getTfProp2().getText().toString();
+					int quantity = Integer.parseInt(productInformation.getTfQuantity().getText().toString());
+					double outPrice = Double.parseDouble(productInformation.getTfOutPrice().getText().toString());
+					double inPrice = Double.parseDouble(productInformation.getTfInPrice().getText().toString());
+					
+					MusicCD musicCD = new MusicCD(idProduct, nameProduct, quantity, outPrice, inPrice, singerName, type);
+					MusicCD musicIsAdd = musicCDService.add(musicCD);
+					if (musicIsAdd == null) {
+						JOptionPane.showMessageDialog(new JDialog(), "Các trường dữ liệu không được để trống - Các trường số không âm");
+					}
+					tableProductView.updateTableMusicCD(musicCDService.findAll());
+					addProductView.setVisible(false);
+				}
+				catch(NumberFormatException ex) {
+					JOptionPane.showMessageDialog(new JDialog(), "Các trường số cần nhập đúng định dạng");
+				}
 				
-				MusicCD musicCD = new MusicCD(idProduct, nameProduct, quantity, outPrice, inPrice, singerName, type);
-				musicCDService.add(musicCD);
-				tableProductView.updateTableMusicCD(musicCDService.findAll());
-				addProductView.setVisible(false);
 			}
 		});
 		/* Clear input */
@@ -261,18 +334,27 @@ public class ProductController{
 		btnAddFilm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String idProduct = productInformation.getTfIdProduct().getText().toString();
-				String nameProduct = productInformation.getTfNameProduct().getText().toString();
-				String director = productInformation.getTfProp1().getText().toString();
-				String type = productInformation.getTfProp2().getText().toString();
-				int quantity = Integer.parseInt(productInformation.getTfQuantity().getText().toString());
-				double outPrice = Double.parseDouble(productInformation.getTfOutPrice().getText().toString());
-				double inPrice = Double.parseDouble(productInformation.getTfInPrice().getText().toString());
-				
-				FilmCD filmCD = new FilmCD(idProduct, nameProduct, quantity, outPrice, inPrice, director, type);
-				filmCDService.add(filmCD);
-				tableProductView.updateTableFilmCD(filmCDService.findAll());
-				addProductView.setVisible(false);
+				try {
+					String idProduct = productInformation.getTfIdProduct().getText().toString();
+					String nameProduct = productInformation.getTfNameProduct().getText().toString();
+					String director = productInformation.getTfProp1().getText().toString();
+					String type = productInformation.getTfProp2().getText().toString();
+					int quantity = Integer.parseInt(productInformation.getTfQuantity().getText().toString());
+					double outPrice = Double.parseDouble(productInformation.getTfOutPrice().getText().toString());
+					double inPrice = Double.parseDouble(productInformation.getTfInPrice().getText().toString());
+					
+					FilmCD filmCD = new FilmCD(idProduct, nameProduct, quantity, outPrice, inPrice, director, type);
+					FilmCD filmIsAdd = filmCDService.add(filmCD);
+					if (filmIsAdd == null) {
+						JOptionPane.showMessageDialog(new JDialog(), "Các trường dữ liệu không được để trống - Các trường số không âm");
+					}
+					tableProductView.updateTableFilmCD(filmCDService.findAll());
+					addProductView.setVisible(false);
+				}
+				catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(new JDialog(), "Các trường số cần nhập đúng định dạng");
+
+				}
 			}
 		});
 		/* Clear input */

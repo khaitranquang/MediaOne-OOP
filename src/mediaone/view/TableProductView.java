@@ -38,7 +38,7 @@ public class TableProductView extends JPanel{
 			  					  "Số lượng", "Giá bán", "Giá nhập"};
 	private int mode = 0;
 	
-	private JRadioButton radBook = new JRadioButton("Sách", true);
+	private JRadioButton radBook = new JRadioButton("Sách", false);
 	private JRadioButton radMusic = new JRadioButton("Nhạc", false);
 	private JRadioButton radFilm = new JRadioButton("Phim", false);
 	

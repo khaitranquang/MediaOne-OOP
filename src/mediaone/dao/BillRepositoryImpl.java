@@ -111,15 +111,15 @@ public class BillRepositoryImpl implements BillRepository {
 		boolean flag = false;
 		try {
 			Connection conn = ConnectionUtils.getConnection();
-			String billSql = "delete from hoadon where MaHoaDon = ?;";
-			PreparedStatement billPstm = conn.prepareStatement(billSql);
-			billPstm.setInt(1, id);
-			billPstm.executeUpdate();
-			
 			String detailBill = "delete from chitiethoadon where MaHoaDon = ?;";
 			PreparedStatement detailPstm = conn.prepareStatement(detailBill);
 			detailPstm.setInt(1, id);
 			detailPstm.executeUpdate();
+			
+			String billSql = "delete from hoadon where MaHoaDon = ?;";
+			PreparedStatement billPstm = conn.prepareStatement(billSql);
+			billPstm.setInt(1, id);
+			billPstm.executeUpdate();	
 			
 			flag = true;
 			conn.close();

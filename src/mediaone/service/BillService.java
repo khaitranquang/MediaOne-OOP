@@ -27,4 +27,11 @@ public interface BillService {
 	 * @return int
 	 */
 	int getNoOfBills(LocalDate startDate, LocalDate endDate);
+	
+	/**
+	 * Delete bill
+	 * @param id
+	 * @return true if delete is success
+	 */
+	boolean removeByID(int id);
 }	

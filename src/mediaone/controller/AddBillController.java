@@ -194,9 +194,6 @@ public class AddBillController {
 		}
 			
 		newBill.setDetailBill(detailBill);
-//		DetailBill detailBill = new DetailBill(idBill, listProductIsBuy);
-//		newBill.setDetailBill(detailBill);
-//		idBill ++;
 		billRepositoryImpl.add(newBill);
 		Double priceOfBill = transactionServiceImpl.pay(detailBill);
 		System.out.println("Price: " + priceOfBill);

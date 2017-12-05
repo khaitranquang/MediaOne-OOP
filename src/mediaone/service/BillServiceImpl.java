@@ -30,4 +30,9 @@ public class BillServiceImpl implements BillService {
 		List<Bill> bills = billRepository.findByExportDayBetween(startDate, endDate);
 		return bills.size();
 	}
+
+	@Override
+	public boolean removeByID(int id) {
+		return billRepository.removeByID(id);
+	}
 }
