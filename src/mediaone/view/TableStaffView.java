@@ -2,6 +2,8 @@ package mediaone.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -11,11 +13,13 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import mediaone.model.Staff;
+
 public class TableStaffView extends JPanel{
 	public static final int TABLE_STAFF_WIDTH  = 950;
 	public static final int TABLE_STAFF_HEIGHT = 350;
 	private JTable table;
-	private String[] titleCols = {"Mã nhân viên", "Tên nhân viên", "Lương"};
+	private String[] titleCols = {"Mã nhân viên", "Tên nhân viên", "Lương", "Số buổi đi làm"};
 	
 	public JTable getTable() {
 		return table;
@@ -64,38 +68,32 @@ public class TableStaffView extends JPanel{
 	}
 	
 	// Update Model of table
-//	public void updateTable(ArrayList<Xe> list) {
-//		SwingUtilities.invokeLater(new Runnable(){public void run(){
-//		    //Update the model here
-//			String data[][] = convertData(list);
-//			DefaultTableModel tableModel = new DefaultTableModel(data, titleCols) {
-//				@Override
-//				public boolean isCellEditable(int row, int column) {
-//					// TODO Auto-generated method stub
-//					return false;
-//				}
-//			};
-//			table.setModel(tableModel);	
-//		}});
-//	}
-//	
-//	// Convert list of Book => Array 2D
-//	private String[][] convertData(ArrayList<Xe> list) {
-//		int size = list.size();
-//		String data[][] = new String[size][titleCols.length];
-//		for (int i = 0; i < size; i++) {
-//			Xe xe = list.get(i);
-//			data[i][0] = xe.getIdXe();
-//			data[i][1] = xe.getBienXe();
-//			data[i][2] = xe.getTenXe();
-//			data[i][3] = xe.getLoaiXe();
-//			data[i][4] = xe.getHangSanXuat();
-//			data[i][5] = xe.getNamSanXuat();
-//			data[i][6] = xe.getNgayBaoTri();
-//			data[i][7] = xe.getNhienLieu();
-//			data[i][8] = xe.getTrangThai() + "";
-//			data[i][9] = xe.getGiaThue() + "";
-//		}
-//		return data;
-//	}
+	public void updateTable(List<Staff> list) {
+		SwingUtilities.invokeLater(new Runnable(){public void run(){
+		    //Update the model here
+			String data[][] = convertData(list);
+			DefaultTableModel tableModel = new DefaultTableModel(data, titleCols) {
+				@Override
+				public boolean isCellEditable(int row, int column) {
+					// TODO Auto-generated method stub
+					return false;
+				}
+			};
+			table.setModel(tableModel);	
+		}});
+	}
+	
+	// Convert list of Book => Array 2D
+	private String[][] convertData(List<Staff> list) {
+		int size = list.size();
+		String data[][] = new String[size][titleCols.length];
+		for (int i = 0; i < size; i++) {
+			Staff staff = list.get(i);
+			data[i][0] = staff.getIdStaff();
+			data[i][1] = staff.getNameStaff();
+			data[i][2] = staff.getSalary() + "";
+			data[i][3] = staff.getDays() + "";
+		}
+		return data;
+	}
 }

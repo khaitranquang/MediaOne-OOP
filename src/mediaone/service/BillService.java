@@ -1,24 +1,37 @@
 package mediaone.service;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.List;
 
 import mediaone.model.Bill;
-import mediaone.model.Statistic;
-
+/**
+ * All service in manager bills
+ * @author Chu lun Kute
+ *
+ */
 public interface BillService {
+	/**
+	 * find all bills from database
+	 * @return bills
+	 */
+	List<Bill> findAll();
+	/**
+	 * get profit from startDate to endDate
+	 * @param startDate
+	 * @param endDate
+	 * @return profit
+	 */
+	Double getProfit(LocalDate startDate, LocalDate endDate);
+	/**
+	 * get number of Bill from startDate to endDate
+	 * @return int
+	 */
+	int getNoOfBills(LocalDate startDate, LocalDate endDate);
 	
-	// Get one Bill
-	public Bill getBill();
-	
-	//Get all Bill
-	public ArrayList<Bill> getAllBill();
-	
-	//Insert one Bill
-	public boolean insertBill();
-	
-	//Delete
-	public boolean deleteBill();
-	
-	//Statistic Bill
-	public ArrayList<Statistic> StatisticBill(String colName);
-}
+	/**
+	 * Delete bill
+	 * @param id
+	 * @return true if delete is success
+	 */
+	boolean removeByID(int id);
+}	

@@ -7,7 +7,15 @@ public class MainUI extends JFrame{
 	private PanelManagerProduct managerProduct;
 	private PanelManagerStaff managerStaff;
 	private PanelManagerBill managerBill;
+	private PanelAccount panelAccount;
+	private String currentAccount = "";
 	
+	public String getCurrentAccount() {
+		return currentAccount;
+	}
+	public void setCurrentAccount(String currentAccount) {
+		this.currentAccount = currentAccount;
+	}
 	public PanelManagerProduct getManagerProduct() {
 		return managerProduct;
 	}
@@ -17,18 +25,21 @@ public class MainUI extends JFrame{
 	public PanelManagerBill getManagerBill() {
 		return managerBill;
 	}
-
+	public PanelAccount getPanelAccount() {
+		return panelAccount;
+	}
+	
 	public MainUI() {
 		createGUI();
 		setDisplay();
 	}
 	
 	private void setDisplay() {
-		setTitle("MedieOne - Nhóm ...");
+		setTitle("MedieOne - Nhóm..." + "Account " + currentAccount);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1100, 600);
 		setLocationRelativeTo(null);
-		setVisible(true);
+		setVisible(false);
 	}
 	
 	private void createGUI() {
@@ -42,7 +53,9 @@ public class MainUI extends JFrame{
 		managerStaff = new PanelManagerStaff();
 		tabbedPane.addTab("Quản lí nhân viên", null, managerStaff, "Quản lí nhân viên");
 		managerBill = new PanelManagerBill();
-		tabbedPane.addTab("Quản lí hóa đơn", null, managerBill, "Quản lí hóa đơn");
+		tabbedPane.addTab("Quản lí bán hàng", null, managerBill, "Quản lí bán hàng");
+		panelAccount = new PanelAccount();
+		tabbedPane.addTab("Quản lí tài khoản", null, panelAccount, "Quản lí tài khoảnn");
 		
 		return tabbedPane;
 	}

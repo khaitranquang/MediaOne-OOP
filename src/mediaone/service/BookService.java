@@ -1,27 +1,61 @@
 package mediaone.service;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import mediaone.dao.BookRepository;
+import mediaone.dao.ProductRepository;
 import mediaone.model.Book;
-import mediaone.model.Statistic;
 
-public interface BookService {
+public class BookService implements ProductService<Book> {
+	ProductRepository<Book> productRepository = new BookRepository();
 	
-	// Get one Book
-	public Book getBook();
+	@Override
+	public List<Book> findAll() {
+		return productRepository.findAll();
+	}
 	
-	// Get all Book from database
-	public ArrayList<Book> getAllBook();
+	@Override
+	public Book add(Book product) {
+		if (product.getQuantity() < 0 || product.getInPrice() < 0 || product.getOutPrice() < 0) {
+			return null;
+		}
+		if (productRepository.findOne(product.getIdProduct()) != null) {
+			return productRepository.update(product);
+		}
+		return productRepository.add(product);
+	}
+
+	@Override
+	public Book update(Book product) {
+		if (product.getQuantity() < 0 || product.getInPrice() < 0 || product.getOutPrice() < 0) {
+			return null;
+		}
+		return productRepository.update(product);
+	}
+
+	@Override
+	public List<Book> findBySpecialProps(Book product) {
+		List<Book> books = productRepository.findAll();
+		
+		return books.stream()
+					.filter(e->checkFilter(e, product))
+					.collect(Collectors.toList());
+	}
 	
-	// Update one Book
-	public boolean updateBook ();
-	
-	// Insert one book
-	public boolean insertBook ();
-	
-	// Delete one Book
-	public boolean deleteBook ();
-	
-	// Statistic Book
-	public ArrayList<Statistic> statisticBook(String colName);
+	private boolean checkFilter(Book book, Book filterBook) {
+		return book.getIdProduct().contains(filterBook.getIdProduct()) 
+			   && book.getAuthor().contains(filterBook.getAuthor())
+			   && book.getPublisher().contains(filterBook.getPublisher());
+	}
+
+	@Override
+	public boolean remove(String id) {
+		return productRepository.removeByID(id);
+	}
+
+	@Override
+	public Book findOne(String id) {
+		return productRepository.findOne(id);
+	}	
 }

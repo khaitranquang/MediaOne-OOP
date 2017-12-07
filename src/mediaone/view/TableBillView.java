@@ -2,6 +2,8 @@ package mediaone.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -10,6 +12,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import mediaone.model.Bill;
 
 public class TableBillView extends JPanel{
 	public static final int TABLE_BILL_WIDTH  = 950;
@@ -64,38 +68,32 @@ public class TableBillView extends JPanel{
 	}
 	
 	// Update Model of table
-//	public void updateTable(ArrayList<Xe> list) {
-//		SwingUtilities.invokeLater(new Runnable(){public void run(){
-//		    //Update the model here
-//			String data[][] = convertData(list);
-//			DefaultTableModel tableModel = new DefaultTableModel(data, titleCols) {
-//				@Override
-//				public boolean isCellEditable(int row, int column) {
-//					// TODO Auto-generated method stub
-//					return false;
-//				}
-//			};
-//			table.setModel(tableModel);	
-//		}});
-//	}
-//	
-//	// Convert list of Book => Array 2D
-//	private String[][] convertData(ArrayList<Xe> list) {
-//		int size = list.size();
-//		String data[][] = new String[size][titleCols.length];
-//		for (int i = 0; i < size; i++) {
-//			Xe xe = list.get(i);
-//			data[i][0] = xe.getIdXe();
-//			data[i][1] = xe.getBienXe();
-//			data[i][2] = xe.getTenXe();
-//			data[i][3] = xe.getLoaiXe();
-//			data[i][4] = xe.getHangSanXuat();
-//			data[i][5] = xe.getNamSanXuat();
-//			data[i][6] = xe.getNgayBaoTri();
-//			data[i][7] = xe.getNhienLieu();
-//			data[i][8] = xe.getTrangThai() + "";
-//			data[i][9] = xe.getGiaThue() + "";
-//		}
-//		return data;
-//	}
+	public void updateTable(List<Bill> list) {
+		SwingUtilities.invokeLater(new Runnable(){public void run(){
+		    //Update the model here
+			String data[][] = convertData(list);
+			DefaultTableModel tableModel = new DefaultTableModel(data, titleCols) {
+				@Override
+				public boolean isCellEditable(int row, int column) {
+					// TODO Auto-generated method stub
+					return false;
+				}
+			};
+			table.setModel(tableModel);	
+		}});
+	}
+	
+	// Convert list of Book => Array 2D
+	private String[][] convertData(List<Bill> list) {
+		int size = list.size();
+		String data[][] = new String[size][titleCols.length];
+		for (int i = 0; i < size; i++) {
+			Bill aBill = list.get(i);
+			data[i][0] = aBill.getIdBill() + "";
+			data[i][1] = aBill.getIdStaff() + "";
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+			data[i][2] = aBill.getExportDate().format(formatter);
+		}
+		return data;
+	}
 }

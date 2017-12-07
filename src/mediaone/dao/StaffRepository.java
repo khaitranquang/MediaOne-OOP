@@ -16,8 +16,16 @@ public interface StaffRepository {
 	Staff add(Staff staff);
 	
 	//Xoa nhan vien
-	Staff removebyid(String id);
+	boolean removeByID(String id);
 	
 	//Cap nhat du lieu
 	Staff update(Staff staff);
+	
+	public boolean changePass(String id, String newpass);
+	
+	public String getPassAdmin();
+	
+	public String getPassEmpl (String idStaff);
+	
+	public void changePassAdmin(String newPass);
 }
