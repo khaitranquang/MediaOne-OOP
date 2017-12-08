@@ -17,19 +17,22 @@ public class StaffService {
 	}
 	
 	public Staff add(Staff staff) {
-		if (staff.getSalary() < 0) {
+		if (staff.getIdStaff().trim().equals("") || staff.getNameStaff().equals("") ||
+			Double.toString(staff.getSalary()).trim().equals("") || staff.getSalary() < 0) {
 			return null;
 		}
 		if (staffRepository.findOne(staff.getIdStaff()) != null) {
-			return staffRepository.update(staff);
+			return null;
 		}
 		return staffRepository.add(staff);
 	}
 	
 	public Staff update(Staff staff) {
-		if (staff.getSalary() < 0) {
+		if (staff.getIdStaff().trim().equals("") || staff.getNameStaff().equals("") ||
+				Double.toString(staff.getSalary()).trim().equals("") || staff.getSalary() < 0) {
 			return null;
 		}
+		
 		return staffRepository.update(staff);
 	}
 	
