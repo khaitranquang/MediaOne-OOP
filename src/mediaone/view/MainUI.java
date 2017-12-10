@@ -8,8 +8,12 @@ public class MainUI extends JFrame{
 	private PanelManagerStaff managerStaff;
 	private PanelManagerBill managerBill;
 	private PanelAccount panelAccount;
+	private JTabbedPane tabbedPane;
 	private String currentAccount = "";
 	
+	public JTabbedPane getTabbedPane() {
+		return tabbedPane;
+	}
 	public String getCurrentAccount() {
 		return currentAccount;
 	}
@@ -35,7 +39,7 @@ public class MainUI extends JFrame{
 	}
 	
 	private void setDisplay() {
-		setTitle("MedieOne - Nhóm..." + "Account " + currentAccount);
+		setTitle("MedieOne - Nhóm 9");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1100, 600);
 		setLocationRelativeTo(null);
@@ -47,7 +51,7 @@ public class MainUI extends JFrame{
 	}
 	
 	private JTabbedPane createTabbedPane() {
-		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane = new JTabbedPane();
 		managerProduct = new PanelManagerProduct();
 		tabbedPane.addTab("Quản lí sản phẩm", null, managerProduct, "Quản lí sản phẩm");
 		managerStaff = new PanelManagerStaff();
@@ -58,9 +62,5 @@ public class MainUI extends JFrame{
 		tabbedPane.addTab("Quản lí tài khoản", null, panelAccount, "Quản lí tài khoảnn");
 		
 		return tabbedPane;
-	}
-	
-	public static void main(String[] args) {
-		MainUI main = new MainUI();
 	}
 }

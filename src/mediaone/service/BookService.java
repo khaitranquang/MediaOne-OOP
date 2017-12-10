@@ -17,18 +17,28 @@ public class BookService implements ProductService<Book> {
 	
 	@Override
 	public Book add(Book product) {
-		if (product.getQuantity() < 0 || product.getInPrice() < 0 || product.getOutPrice() < 0) {
+		if (product.getIdProduct().trim().equals("") || product.getNameProduct().trim().equals("") ||
+			product.getPublisher().trim().equals("") || product.getAuthor().trim().equals("") ||
+			Integer.toString(product.getQuantity()).trim().equals("") ||
+			Double.toString(product.getInPrice()).trim().equals("") ||
+			Double.toString(product.getOutPrice()).trim().equals("") ||
+			product.getQuantity() < 0 || product.getInPrice() < 0 || product.getOutPrice() < 0) {
 			return null;
 		}
 		if (productRepository.findOne(product.getIdProduct()) != null) {
-			return productRepository.update(product);
+			return null;
 		}
 		return productRepository.add(product);
 	}
 
 	@Override
 	public Book update(Book product) {
-		if (product.getQuantity() < 0 || product.getInPrice() < 0 || product.getOutPrice() < 0) {
+		if (product.getIdProduct().trim().equals("") || product.getNameProduct().trim().equals("") ||
+			product.getPublisher().trim().equals("") || product.getAuthor().trim().equals("") ||
+			Integer.toString(product.getQuantity()).trim().equals("") ||
+			Double.toString(product.getInPrice()).trim().equals("") ||
+			Double.toString(product.getOutPrice()).trim().equals("") ||
+			product.getQuantity() < 0 || product.getInPrice() < 0 || product.getOutPrice() < 0) {
 			return null;
 		}
 		return productRepository.update(product);

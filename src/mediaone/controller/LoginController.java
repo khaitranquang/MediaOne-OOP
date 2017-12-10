@@ -88,11 +88,11 @@ public class LoginController {
 //						TableColumnModel tcm = mainUI.getManagerProduct().getTableProductView().getTable().getColumnModel();
 //						tcm.removeColumn( tcm.getColumn(6) );
 						
-						mainUI.getManagerStaff().getButtonStaffView().setVisible(false);
+						mainUI.getTabbedPane().setEnabledAt(1, false);
 						mainUI.getManagerBill().getButtonBillView().getBtnAdd().setEnabled(true);
 					}
 					else {
-						mainUI.getManagerStaff().getButtonStaffView().setVisible(true);
+						mainUI.getTabbedPane().setEnabledAt(1, true);
 						mainUI.getManagerBill().getButtonBillView().getBtnAdd().setEnabled(false);
 					}
 					createController();

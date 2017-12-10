@@ -42,7 +42,6 @@ public class ShowDetailBillController {
 		billRepositoryImpl = new BillRepositoryImpl();
 		transactionServiceImpl = new TransactionServiceImpl();
 		tableBillView = mainUI.getManagerBill().getTableBillView();
-//		tableDetailView = new TableDetailView();
 		btnShowDetail = mainUI.getManagerBill().getButtonBillView().getBtnDetail();
 		
 		btnShowEvent();
@@ -101,12 +100,12 @@ public class ShowDetailBillController {
 		detailInformation.getLbExportDate().setText(exportDate);
 		
 		List<Product> listProduct = bill.getDetailBill().getProducts();
-		String[][] listProductIsBuy = new String[listProduct.size()][2];
+		String[][] listProductIsBuy = new String[listProduct.size()][3];
 		for (int i = 0; i < listProduct.size(); i++) {
 			Product product = listProduct.get(i);
 			listProductIsBuy[i][0] = product.getIdProduct();
 			listProductIsBuy[i][1] = product.getOutPrice() + "";
-			listProductIsBuy[i][1] = product.getQuantity() + "";
+			listProductIsBuy[i][2] = product.getQuantity() + "";
 		}
 		
 		for (int i = 0; i < listProductIsBuy.length; i++) {

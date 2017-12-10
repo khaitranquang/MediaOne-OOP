@@ -95,7 +95,9 @@ public class StaffController {
 					Staff staff = new Staff(idStaff, nameStaff, idStaff, salary, 0);
 					Staff staffIsAdd = staffService.add(staff);
 					if (staffIsAdd == null) {
-						JOptionPane.showMessageDialog(new JDialog(), "Các trường dữ liệu cần nhập đúng định dạng - Không nhấp số âm");
+						JOptionPane.showMessageDialog(new JDialog(), "Các trường dữ liệu cần nhập đúng định dạng - Không nhấp số âm \n"
+																   + "Các trường không được để trống");
+						return;
 					}
 					tableStaffView.updateTable(staffService.findAll());
 					addStaffView.setVisible(false);
@@ -157,8 +159,9 @@ public class StaffController {
 						Staff staff = new Staff(idStaff, newNameStaff, pass, newSalary, days);
 						Staff staffIsEdit =  staffService.update(staff);
 						if (staffIsEdit == null) {
-							JOptionPane.showMessageDialog(new JDialog(), "Các trường số cần nhập đúng định dạng \n"
-																	   + "Trường số không nhập âm");
+							JOptionPane.showMessageDialog(new JDialog(), "Các trường dữ liệu cần nhập đúng định dạng - Không nhấp số âm \n"
+									   								   + "Các trường không được để trống");
+							return;
 						}
 						tableStaffView.updateTable(staffService.findAll());
 						editStaffView.setVisible(false);

@@ -17,11 +17,16 @@ public class MusicCDService implements ProductService<MusicCD>{
 
 	@Override
 	public MusicCD add(MusicCD product) {
-		if (product.getQuantity() < 0 || product.getInPrice() < 0 || product.getOutPrice() < 0) {
+		if (product.getIdProduct().trim().equals("") || product.getNameProduct().trim().equals("") ||
+			product.getSingerName().trim().equals("") || product.getType().trim().equals("") ||
+			Integer.toString(product.getQuantity()).trim().equals("") ||
+			Double.toString(product.getInPrice()).trim().equals("") ||
+			Double.toString(product.getOutPrice()).trim().equals("") ||
+			product.getQuantity() < 0 || product.getInPrice() < 0 || product.getOutPrice() < 0) {
 			return null;
 		}
 		if (productRepository.findOne(product.getIdProduct()) != null) {
-			return productRepository.update(product);
+			return null;
 		}
 		return productRepository.add(product);
 	}
@@ -43,7 +48,12 @@ public class MusicCDService implements ProductService<MusicCD>{
 	
 	@Override
 	public MusicCD update(MusicCD product) {
-		if (product.getQuantity() < 0 || product.getInPrice() < 0 || product.getOutPrice() < 0) {
+		if (product.getIdProduct().trim().equals("") || product.getNameProduct().trim().equals("") ||
+			product.getSingerName().trim().equals("") || product.getType().trim().equals("") ||
+			Integer.toString(product.getQuantity()).trim().equals("") ||
+			Double.toString(product.getInPrice()).trim().equals("") ||
+			Double.toString(product.getOutPrice()).trim().equals("") ||
+			product.getQuantity() < 0 || product.getInPrice() < 0 || product.getOutPrice() < 0) {
 			return null;
 		}
 		return productRepository.update(product);

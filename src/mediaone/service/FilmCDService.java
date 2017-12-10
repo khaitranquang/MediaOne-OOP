@@ -17,11 +17,16 @@ public class FilmCDService implements ProductService<FilmCD>{
 
 	@Override
 	public FilmCD add(FilmCD product) {
-		if (product.getQuantity() < 0 || product.getInPrice() < 0 || product.getOutPrice() < 0) {
+		if (product.getIdProduct().trim().equals("") || product.getNameProduct().trim().equals("") ||
+			product.getDirector().trim().equals("") || product.getType().trim().equals("") ||
+			Integer.toString(product.getQuantity()).trim().equals("") ||
+			Double.toString(product.getInPrice()).trim().equals("") ||
+			Double.toString(product.getOutPrice()).trim().equals("") ||
+			product.getQuantity() < 0 || product.getInPrice() < 0 || product.getOutPrice() < 0) {
 			return null;
 		}
 		if (productRepository.findOne(product.getIdProduct()) != null) {
-			return productRepository.update(product);
+			return null;
 		}
 		return productRepository.add(product);
 	}
@@ -43,7 +48,12 @@ public class FilmCDService implements ProductService<FilmCD>{
 	
 	@Override
 	public FilmCD update(FilmCD product) {
-		if (product.getQuantity() < 0 || product.getInPrice() < 0 || product.getOutPrice() < 0) {
+		if (product.getIdProduct().trim().equals("") || product.getNameProduct().trim().equals("") ||
+			product.getDirector().trim().equals("") || product.getType().trim().equals("") ||
+			Integer.toString(product.getQuantity()).trim().equals("") ||
+			Double.toString(product.getInPrice()).trim().equals("") ||
+			Double.toString(product.getOutPrice()).trim().equals("") ||
+			product.getQuantity() < 0 || product.getInPrice() < 0 || product.getOutPrice() < 0) {
 			return null;
 		}
 		return productRepository.update(product);

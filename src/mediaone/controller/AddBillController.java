@@ -96,20 +96,33 @@ public class AddBillController {
 	 * Set Action for btnAddProductIsBuy
 	 */
 	private void setActionForBtnAddProductIsBuy() {
-		String idProduct = billInformation.getTfIdProduct().getText().toString();
-		int number = Integer.parseInt(billInformation.getTfQuantity().getText().toString());
-		Product productIsBuy = transactionServiceImpl.addProductToBill(idProduct, number);
-		listProductIsBuy.add(productIsBuy);
-		
-		ProductIsBuyView productIsBuyView = new ProductIsBuyView(idProduct, productIsBuy.getOutPrice() + "", number + "");
-		arrProductIsBuyView.add(productIsBuyView);
-		rightPanel.add(productIsBuyView);
-		
-		rightPanel.revalidate();
-		rightPanel.repaint();
-		rightPanel.setVisible(true);
-		billInformation.getTfIdProduct().setText("");
-		billInformation.getTfQuantity().setText("");		
+		try {
+			String idProduct = billInformation.getTfIdProduct().getText().toString();
+			int number = Integer.parseInt(billInformation.getTfQuantity().getText().toString());
+			Product productIsBuy = transactionServiceImpl.addProductToBill(idProduct, number);
+			
+			if (productIsBuy == null) {
+				JOptionPane.showMessageDialog(new JDialog(), "Sản phẩm này không khả dụng \n"
+														   + "Nhập lại đúng mã hàng và số lượng \n"
+														   + "Chú ý mã phân biệt hoa thường");
+				return;
+			}
+			
+			listProductIsBuy.add(productIsBuy);
+			ProductIsBuyView productIsBuyView = new ProductIsBuyView(idProduct, productIsBuy.getOutPrice() + "", number + "");
+			arrProductIsBuyView.add(productIsBuyView);
+			rightPanel.add(productIsBuyView);
+			
+			rightPanel.revalidate();
+			rightPanel.repaint();
+			rightPanel.setVisible(true);
+			billInformation.getTfIdProduct().setText("");
+			billInformation.getTfQuantity().setText("");	
+		}
+		catch(NumberFormatException ex) {
+			JOptionPane.showMessageDialog(new JDialog(), "Nhập đúng định dạng trường số");
+			return;
+		}	
 	}
 	
 	/*
