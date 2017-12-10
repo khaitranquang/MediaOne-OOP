@@ -251,12 +251,36 @@ public class StaffRepositoryImpl implements StaffRepository{
 		PreparedStatement preStatement = null;
 		
 		try {
-			String sql = "UPDATE admin SET pass=?";
+			String sql = "UPDATE admin SET password=?";
 			preStatement = conn.prepareStatement(sql);
 			preStatement.setString(1, newpass);
 			
 			int rows = preStatement.executeUpdate();
 			if (rows > 0) System.out.println("Changed");
+			
+			preStatement.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			ConnectionUtils.closeConnection();
+		}
+	}
+
+	@Override
+	public void initAdmin() {
+		Connection conn = ConnectionUtils.getConnection();
+		PreparedStatement preStatement = null;
+		
+		try {
+			String sql = "INSERT INTO admin (account, password) VALUES (?, ?)";
+			preStatement = conn.prepareStatement(sql);
+			preStatement.setString(1, "admin");
+			preStatement.setString(2, "1234");
+			
+			int rows = preStatement.executeUpdate();
+			if (rows > 0) System.out.println("Init admin");
 			
 			preStatement.close();
 			conn.close();

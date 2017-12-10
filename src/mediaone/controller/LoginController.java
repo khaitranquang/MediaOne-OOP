@@ -70,9 +70,15 @@ public class LoginController {
 		btnLogin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				/* If admin is not exists - initial admin */
+				if (staffRepository.getPassAdmin().equals("")) {
+					staffRepository.initAdmin();
+				}
+				
 				account = tfAccount.getText().toString().trim();
 				String pass = new String(tfPass.getPassword());
 				System.out.println(pass);
+				
 				/* Login success */
 				if (staffService.isLogin(account, pass)) {
 					System.out.println("Login success");
