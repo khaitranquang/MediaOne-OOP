@@ -24,6 +24,7 @@ public class DeleteBillController {
 		
 		/*
 		 * Set action delete bill for btnDelete
+		 *  Find index of row that selected and remove it
 		 */
 		JButton btnDelete = mainUI.getManagerBill().getButtonBillView().getBtnDelete();
 		btnDelete.addActionListener(new ActionListener() {

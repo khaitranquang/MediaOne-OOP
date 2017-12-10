@@ -23,7 +23,7 @@ public class AddBillView extends JDialog{
 		setPreferredSize(new Dimension(1020, 338));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setResizable(true);
-		setTitle("Thêm mượn trả mới");
+		setTitle("Thêm hóa đơn mới");
 		
 		billInformation = new BillInformation();
 		

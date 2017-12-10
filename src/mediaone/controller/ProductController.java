@@ -143,6 +143,7 @@ public class ProductController{
 	
 	/*
 	 * Action search
+	 *  create a product template and use findBySpecialProps method of productService
 	 */
 	private void actionSearch(int radIndexSelected) {
 		String textFind = tfSearch.getText().toString();

@@ -254,28 +254,4 @@ public class TableProductView extends JPanel{
 
 		return data;
 	}
-	
-	
-	
-	// Convert list of Product => Array 2D
-//	private String[][] convertData(ArrayList listProduct) {
-//		int size = list.size();
-//		String data[][] = new String[size][titleCols.length];
-//		for (int i = 0; i < size; i++) {
-//			Xe xe = list.get(i);
-//			data[i][0] = xe.getIdXe();
-//			data[i][1] = xe.getBienXe();
-//			data[i][2] = xe.getTenXe();
-//			data[i][3] = xe.getLoaiXe();
-//			data[i][4] = xe.getHangSanXuat();
-//			data[i][5] = xe.getNamSanXuat();
-//			data[i][6] = xe.getNgayBaoTri();
-//			data[i][7] = xe.getNhienLieu();
-//			data[i][8] = xe.getTrangThai() + "";
-//			data[i][9] = xe.getGiaThue() + "";
-//		}
-//		return data;
-//	}
-	
-	
 }

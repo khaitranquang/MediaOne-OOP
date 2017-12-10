@@ -20,7 +20,6 @@ import mediaone.view.TableStaffView;
 public class StaffController {
 	private MainUI mainUI;
 	private StaffService staffService;
-//	private StaffRepositoryImpl staffRepositoryImpl;
 	private JButton btnSalary;
 	private JButton btnAdd;
 	private JButton btnEdit;

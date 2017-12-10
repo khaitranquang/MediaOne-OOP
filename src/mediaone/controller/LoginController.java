@@ -81,13 +81,7 @@ public class LoginController {
 					mainUI.setCurrentAccount(account);
 					mainUI.setVisible(true);
 					if (!account.equals("admin")) {
-						//mainUI.getManagerProduct().getTableProductView().getTable().getColumnModel().getColumn(4).setMaxWidth(0);
-//						mainUI.getManagerProduct().getTableProductView().getTable().getColumnModel().getColumn(6).setWidth(0);
-//						mainUI.getManagerProduct().getTableProductView().getTable().getColumnModel().getColumn(6).setMinWidth(0);
-//						mainUI.getManagerProduct().getTableProductView().getTable().getColumnModel().getColumn(6).setMaxWidth(0);
-//						TableColumnModel tcm = mainUI.getManagerProduct().getTableProductView().getTable().getColumnModel();
-//						tcm.removeColumn( tcm.getColumn(6) );
-						
+						/* Staff isn't allowed manage staff */
 						mainUI.getTabbedPane().setEnabledAt(1, false);
 						mainUI.getManagerBill().getButtonBillView().getBtnAdd().setEnabled(true);
 					}

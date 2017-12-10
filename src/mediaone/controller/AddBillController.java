@@ -33,6 +33,9 @@ import mediaone.view.ProductIsBuyView;
 import mediaone.view.TableBillView;
 import mediaone.view.TableProductView;
 
+/*
+ * AddBillController - add a new bll
+ */
 public class AddBillController {
 	private MainUI mainUI;
 	private BillServiceImpl billServiceImpl;
@@ -46,8 +49,6 @@ public class AddBillController {
 	private List<Product> listProductIsBuy = new ArrayList<Product>(); 
 	private JPanel rightPanel;
 	private List<ProductIsBuyView> arrProductIsBuyView = new ArrayList<ProductIsBuyView>();
-//	
-//	private int idBill = 1;
 	
 	public AddBillController(MainUI mainUI) {
 		this.mainUI = mainUI;
@@ -65,10 +66,16 @@ public class AddBillController {
 		btnAddBillManager.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				/* Define views:
+				 * 	addBillView - main dialog, add a bill
+				 *  billInformation - information of bill
+				 *  rightPanel - show all products is selected
+				 */
 				addBillView = new AddBillView(mainUI);
 				billInformation = addBillView.getBillInformation();
 				rightPanel = billInformation.getRightPanel();
 				
+				/* Get current staff who login, and current day */
 				String idCurrentStaff = mainUI.getCurrentAccount();
 				billInformation.getLbIdStaff().setText(idCurrentStaff);
 				billInformation.getLbNameStaff().setText(staffService.findOne(idCurrentStaff).getNameStaff());
@@ -77,6 +84,7 @@ public class AddBillController {
 				billInformation.getTfExportDate().setText(now.format(formatter));
 				billInformation.getTfExportDate().setEditable(false);
 				
+				/* Set action for btnAddProductIsBuy */
 				JButton btnAddProductIsBuy = billInformation.getBtnAddThisProduct();
 				btnAddProductIsBuy.addActionListener(new ActionListener() {
 					@Override
@@ -94,6 +102,7 @@ public class AddBillController {
 	
 	/*
 	 * Set Action for btnAddProductIsBuy
+	 *  Check product is available ?
 	 */
 	private void setActionForBtnAddProductIsBuy() {
 		try {
@@ -108,6 +117,7 @@ public class AddBillController {
 				return;
 			}
 			
+			/* Add this product to list and show it on rightPanel */
 			listProductIsBuy.add(productIsBuy);
 			ProductIsBuyView productIsBuyView = new ProductIsBuyView(idProduct, productIsBuy.getOutPrice() + "", number + "");
 			arrProductIsBuyView.add(productIsBuyView);
@@ -129,7 +139,6 @@ public class AddBillController {
 	 * Action: right-click to remove product is buy
 	 */
 	private void setActionOnRightPanel() {
-		//System.out.println(arrProductIsBuyView.size());
 		for (int i = 0; i < arrProductIsBuyView.size(); i++) {
 			ProductIsBuyView productIsBuyView = arrProductIsBuyView.get(i);
 			JMenuItem menuItem    = new JMenuItem("Remove");

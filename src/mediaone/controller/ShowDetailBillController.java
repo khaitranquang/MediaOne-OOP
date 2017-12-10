@@ -107,11 +107,6 @@ public class ShowDetailBillController {
 			listProductIsBuy[i][1] = product.getOutPrice() + "";
 			listProductIsBuy[i][2] = product.getQuantity() + "";
 		}
-		
-		for (int i = 0; i < listProductIsBuy.length; i++) {
-			System.out.println(listProductIsBuy[i][0] + " out: " + listProductIsBuy[i][1] + "so luong: " + listProductIsBuy[i][1]);
-		}
-		
 		tableDetailView.updateTable(listProductIsBuy);
 		
 		Double price = bill.getDetailBill().getPrice();
