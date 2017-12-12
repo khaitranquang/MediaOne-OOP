@@ -269,7 +269,7 @@ public class StaffRepositoryImpl implements StaffRepository{
 	}
 
 	@Override
-	public void initAdmin() {
+	public boolean initAdmin() {
 		Connection conn = ConnectionUtils.getConnection();
 		PreparedStatement preStatement = null;
 		
@@ -284,8 +284,10 @@ public class StaffRepositoryImpl implements StaffRepository{
 			
 			preStatement.close();
 			conn.close();
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 		finally {
 			ConnectionUtils.closeConnection();

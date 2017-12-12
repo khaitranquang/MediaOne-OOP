@@ -19,6 +19,7 @@ import mediaone.dao.BillRepositoryImpl;
 import mediaone.model.Bill;
 import mediaone.model.DetailBill;
 import mediaone.model.Product;
+import mediaone.service.BillService;
 import mediaone.service.BillServiceImpl;
 import mediaone.service.BookService;
 import mediaone.service.FilmCDService;
@@ -38,7 +39,7 @@ import mediaone.view.TableProductView;
  */
 public class AddBillController {
 	private MainUI mainUI;
-	private BillServiceImpl billServiceImpl;
+	private BillService billServiceImpl;
 	private TransactionService  transactionServiceImpl;
 	private StaffService staffService;
 	

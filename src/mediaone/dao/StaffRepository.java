@@ -23,7 +23,7 @@ public interface StaffRepository {
 	
 	public boolean changePass(String id, String newpass);
 	
-	public void initAdmin();
+	public boolean initAdmin();
 	
 	public String getPassAdmin();
 	

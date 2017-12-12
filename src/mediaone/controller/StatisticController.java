@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 import javax.swing.JButton;
 
+import mediaone.service.BillService;
 import mediaone.service.BillServiceImpl;
 import mediaone.view.MainUI;
 import mediaone.view.StatisticView;
@@ -14,7 +15,7 @@ import mediaone.view.StatisticView;
 public class StatisticController {
 	private MainUI mainUI;
 	private StatisticView statisticView;
-	private BillServiceImpl billServiceImpl;
+	private BillService billServiceImpl;
 	private JButton btnStatistic;
 	
 	public StatisticController(MainUI mainUI) {

@@ -108,4 +108,16 @@ public class StaffService {
 		return countsalary;
 		
 	}
+	
+	public String getPassEmpl(String idStaff) {
+		return staffRepository.getPassEmpl(idStaff);
+	}
+	
+	public String getPassAdmin() {
+		return staffRepository.getPassAdmin();
+	}
+	
+	public boolean initAdmin() {
+		return staffRepository.initAdmin();
+	}
 }

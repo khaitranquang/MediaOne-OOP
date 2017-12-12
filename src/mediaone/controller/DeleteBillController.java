@@ -8,13 +8,14 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
+import mediaone.service.BillService;
 import mediaone.service.BillServiceImpl;
 import mediaone.view.MainUI;
 import mediaone.view.TableBillView;
 
 public class DeleteBillController {
 	private MainUI mainUI;
-	private BillServiceImpl billServiceImpl;
+	private BillService billServiceImpl;
 	private TableBillView tableBillView;
 	
 	public DeleteBillController(MainUI mainUI) {

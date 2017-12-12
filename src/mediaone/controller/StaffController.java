@@ -1,6 +1,5 @@
 package mediaone.controller;
 
-import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

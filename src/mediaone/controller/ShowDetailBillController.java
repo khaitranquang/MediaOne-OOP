@@ -10,13 +10,11 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
-import mediaone.dao.BillRepositoryImpl;
 import mediaone.model.Bill;
-import mediaone.model.DetailBill;
 import mediaone.model.Product;
+import mediaone.service.BillService;
 import mediaone.service.BillServiceImpl;
 import mediaone.service.StaffService;
-import mediaone.service.TransactionServiceImpl;
 import mediaone.view.DetailInformation;
 import mediaone.view.DetailView;
 import mediaone.view.MainUI;
@@ -25,10 +23,7 @@ import mediaone.view.TableDetailView;
 
 public class ShowDetailBillController {
 	private MainUI mainUI;
-	private DetailBill detailBill;
-	private TransactionServiceImpl transactionServiceImpl;
-	private BillServiceImpl billServiceImpl;
-	private BillRepositoryImpl billRepositoryImpl;
+	private BillService billServiceImpl;
 	
 	private DetailView detailView;
 	private DetailInformation detailInformation;
@@ -39,8 +34,6 @@ public class ShowDetailBillController {
 	public ShowDetailBillController(MainUI mainUI) {
 		this.mainUI = mainUI;
 		billServiceImpl = new BillServiceImpl();
-		billRepositoryImpl = new BillRepositoryImpl();
-		transactionServiceImpl = new TransactionServiceImpl();
 		tableBillView = mainUI.getManagerBill().getTableBillView();
 		btnShowDetail = mainUI.getManagerBill().getButtonBillView().getBtnDetail();
 		

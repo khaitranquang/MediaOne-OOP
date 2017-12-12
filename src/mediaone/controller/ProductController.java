@@ -14,11 +14,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import mediaone.dao.ProductRepositoryImpl;
 import mediaone.model.Book;
 import mediaone.model.FilmCD;
 import mediaone.model.MusicCD;
-import mediaone.model.Product;
 import mediaone.service.BookService;
 import mediaone.service.FilmCDService;
 import mediaone.service.MusicCDService;
@@ -43,7 +41,6 @@ public class ProductController{
 	private BookService bookService;
 	private MusicCDService musicCDService;
 	private FilmCDService filmCDService;
-	private ProductRepositoryImpl productRepositoryImpl = new ProductRepositoryImpl();
 	
 	List<Book> resultSearchBook;
 	List<MusicCD> resultSearchMusic;
@@ -396,7 +393,7 @@ public class ProductController{
 			int indexOfRow = findIndexOfData();
 			if (indexOfRow >= 0) {
 				String id = getValueFromTable(indexOfRow, 0);
-				loadInfor(indexOfRow, id, productInformation);
+				loadInfor(0, indexOfRow, id, productInformation);
 				actionEditBook(editProductView);
 			}
 			else {
@@ -413,7 +410,7 @@ public class ProductController{
 			int indexOfRow = findIndexOfData();
 			if (indexOfRow >= 0) {
 				String id = getValueFromTable(indexOfRow, 0);
-				loadInfor(indexOfRow, id, productInformation);
+				loadInfor(1, indexOfRow, id, productInformation);
 				actionEditMusic(editProductView);
 			}
 			else {
@@ -431,7 +428,7 @@ public class ProductController{
 			int indexOfRow = findIndexOfData();
 			if (indexOfRow >= 0) {
 				String id = getValueFromTable(indexOfRow, 0);
-				loadInfor(indexOfRow, id, productInformation);
+				loadInfor(2, indexOfRow, id, productInformation);
 				actionEditFilm(editProductView);
 			}
 			else {
@@ -509,6 +506,7 @@ public class ProductController{
 	private void actionEditMusic(EditProductView editProductView) {
 		ProductInformation productInformation = editProductView.getProductInformation();
 		editProductView.setVisible(true);
+		editProductView.getProductInformation().getTfIdProduct().setEditable(false);
 		JButton btnEdit = editProductView.getBtnEdit();
 		JButton btnCancel = editProductView.getBtnCancel();
 		
@@ -555,6 +553,7 @@ public class ProductController{
 	private void actionEditFilm(EditProductView editProductView) {
 		ProductInformation productInformation = editProductView.getProductInformation();
 		editProductView.setVisible(true);
+		editProductView.getProductInformation().getTfIdProduct().setEditable(false);
 		JButton btnEdit = editProductView.getBtnEdit();
 		JButton btnCancel = editProductView.getBtnCancel();
 		
@@ -657,15 +656,37 @@ public class ProductController{
 		return;
 	}
 	
-	private void loadInfor (int indexOfRow, String id, ProductInformation productInformation) {
-		Product product = productRepositoryImpl.findOne(id);
-		productInformation.getTfIdProduct().setText(id);
-		productInformation.getTfNameProduct().setText(product.getNameProduct());
-		productInformation.getTfOutPrice().setText(product.getOutPrice() + "");
-		productInformation.getTfInPrice().setText(product.getInPrice() + "");
-		productInformation.getTfQuantity().setText(product.getQuantity() + "");
-		productInformation.getTfProp1().setText(getValueFromTable(indexOfRow, 2));
-		productInformation.getTfProp2().setText(getValueFromTable(indexOfRow, 3));
+	private void loadInfor (int mode, int indexOfRow, String id, ProductInformation productInformation) {
+		if (mode == 0) {
+			Book book = (Book) bookService.findOne(id);
+			productInformation.getTfIdProduct().setText(id);
+			productInformation.getTfNameProduct().setText(book.getNameProduct());
+			productInformation.getTfOutPrice().setText(book.getOutPrice() + "");
+			productInformation.getTfInPrice().setText(book.getInPrice() + "");
+			productInformation.getTfQuantity().setText(book.getQuantity() + "");
+			productInformation.getTfProp1().setText(book.getPublisher());
+			productInformation.getTfProp2().setText(book.getAuthor());
+		}
+		else if (mode == 1) {
+			MusicCD musicCD = (MusicCD) musicCDService.findOne(id);
+			productInformation.getTfIdProduct().setText(id);
+			productInformation.getTfNameProduct().setText(musicCD.getNameProduct());
+			productInformation.getTfOutPrice().setText(musicCD.getOutPrice() + "");
+			productInformation.getTfInPrice().setText(musicCD.getInPrice() + "");
+			productInformation.getTfQuantity().setText(musicCD.getQuantity() + "");
+			productInformation.getTfProp1().setText(musicCD.getSingerName());
+			productInformation.getTfProp2().setText(musicCD.getType());
+		}
+		else if (mode == 2) {
+			FilmCD filmCD = (FilmCD) filmCDService.findOne(id);
+			productInformation.getTfIdProduct().setText(id);
+			productInformation.getTfNameProduct().setText(filmCD.getNameProduct());
+			productInformation.getTfOutPrice().setText(filmCD.getOutPrice() + "");
+			productInformation.getTfInPrice().setText(filmCD.getInPrice() + "");
+			productInformation.getTfQuantity().setText(filmCD.getQuantity() + "");
+			productInformation.getTfProp1().setText(filmCD.getDirector());
+			productInformation.getTfProp2().setText(filmCD.getType());
+		}
 	}
 	
 	private void clearInput(ProductInformation productInformation) {

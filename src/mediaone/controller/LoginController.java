@@ -9,9 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.table.TableColumnModel;
 
-import mediaone.dao.StaffRepositoryImpl;
 import mediaone.service.StaffService;
 import mediaone.view.ChangePassView;
 import mediaone.view.LoginView;
@@ -28,7 +26,6 @@ public class LoginController {
 	private JButton btnLogout;
 	
 	private StaffService staffService;
-	private StaffRepositoryImpl staffRepository;
 	private String account;
 	
 	public String getAccount() {
@@ -37,7 +34,6 @@ public class LoginController {
 	
 	public LoginController (MainUI mainUI) {
 		staffService = new StaffService();
-		staffRepository = new StaffRepositoryImpl();
 		this.mainUI = mainUI;
 		/* Initialize view */
 		loginView = new LoginView();
@@ -71,8 +67,8 @@ public class LoginController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				/* If admin is not exists - initial admin */
-				if (staffRepository.getPassAdmin().equals("")) {
-					staffRepository.initAdmin();
+				if (staffService.getPassAdmin().equals("")) {
+					staffService.initAdmin();
 				}
 				
 				account = tfAccount.getText().toString().trim();
@@ -153,10 +149,10 @@ public class LoginController {
 						String oldPassFromDB = "";
 						/* If account is administrator, we will get password from Admin*/
 						if (account.equals("admin")) {
-							oldPassFromDB = staffRepository.getPassAdmin();
+							oldPassFromDB = staffService.getPassAdmin();
 						}
 						/* Else get password of staff */
-						else oldPassFromDB = staffRepository.getPassEmpl(account);
+						else oldPassFromDB = staffService.getPassEmpl(account);
 						
 						String oldPass   = new String(tfOldPass.getPassword());
 						String newPass   = new String(tfNewPass.getPassword());
